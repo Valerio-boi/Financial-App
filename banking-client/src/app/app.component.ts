@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AccountService } from './service/account/account.service';
+import { AccountService } from './core/services/account.service';
 import { Observable } from 'rxjs';
 
 @Component({
