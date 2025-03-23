@@ -1,5 +1,6 @@
 package com.financial.banking.util;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,12 +26,18 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = extractTokenFromHeader(request);
 
-        if (token != null && jwtUtils.validateToken(token, getUsernameFromRequest(request))) {
-            String username = jwtUtils.extractUsername(token);
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    username, null, null);
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        System.out.println("er token -----> "  + token);
+
+        if (token != null && jwtUtils.validateToken(token)) {
+            System.out.println("ER TOKEN É VALIDO");
+            String username = jwtUtils.extractUsername(token);  // Estrai il nome utente dal token
+
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                        username, null, null);  // Puoi aggiungere authorities se necessario
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
 
         filterChain.doFilter(request, response);
@@ -39,7 +46,7 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
     private String extractTokenFromHeader(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            return authHeader.substring(7);
+            return authHeader.substring(7);  // Rimuove "Bearer "
         }
         return null;
     }
