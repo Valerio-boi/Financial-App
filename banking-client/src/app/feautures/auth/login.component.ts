@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AuthService } from '../../core/services/login/auth.service';
 import { FormsModule } from '@angular/forms'; 
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   imports: [CommonModule, FormsModule],
-  styleUrls: ['./login.component.css']  // Correzione da 'styleUrl' a 'styleUrls'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
 
