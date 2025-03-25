@@ -1,10 +1,8 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { AuthService } from '../../core/services/login/auth.service';
 import { FormsModule } from '@angular/forms'; 
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 
 @Component({

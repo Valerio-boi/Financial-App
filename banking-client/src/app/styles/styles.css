@@ -1,31 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+@import '@fortawesome/fontawesome-free/css/all.min.css';
 
 body {
     margin: 0;
     padding: 0;
-    height: 100vh; /* Imposta l'altezza a 100% della finestra */
+    height: 100vh; 
     display: flex;
-    justify-content: center;  /* Centra orizzontalmente */
-    align-items: center;  /* Centra verticalmente */
-    background-color: #2e3537 !important; /* Dark background */
+    justify-content: center;  
+    align-items: center; 
+    background-color: #2e3537 !important; 
     overflow: hidden;
+  }
+
+  .content {
+    flex: 1; 
   }
 
   .wrapper {
     position: relative;
     width: 100%;
-    height: 100vh; /* Full height */
+    height: 100vh;
 }
 
 .bubble {
     position: absolute;
-    bottom: -100px; /* Start below the viewport */
-    background: rgba(255, 255, 255, 0.6); /* Bubble color */
-    border-radius: 50%; /* Make it round */
-    animation: rise 10s infinite; /* Animation properties */
+    bottom: -100px; 
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%; 
+    animation: rise 10s infinite; 
 }
 
-/* Varying sizes for bubbles */
+
 .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-delay: 0s; }
 .bubble:nth-child(2) { width: 60px; height: 60px; left: 30%; animation-delay: 1s; }
 .bubble:nth-child(3) { width: 50px; height: 50px; left: 50%; animation-delay: 2s; }
@@ -39,8 +43,8 @@ body {
 
 @keyframes rise {
     to {
-        transform: translateY(-100vh); /* Move up out of view */
-        opacity: 0; /* Fade out */
+        transform: translateY(-100vh); 
+        opacity: 0; 
     }
 }
   
@@ -50,20 +54,10 @@ body {
   }
 
   app-login {
-    display: inline-block;
-    height: 100vh;
-    width: 100vh;
+    text-align: -webkit-center;
   }
 
 
-  body, html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center; /* Centra orizzontalmente */
-    align-items: center; /* Centra verticalmente */
-    background-color: #2e3537; /* Sfondo scuro */
-}
 
 .container {
     display: flex;
@@ -76,10 +70,10 @@ body {
 .box {
     position: relative;
     padding: 40px;
-    background: rgba(255, 255, 255, 0.1); /* Sfondo trasparente */
+    background: rgba(255, 255, 255, 0.1); 
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px); /* Effetto vetro */
+    backdrop-filter: blur(10px); 
     text-align: center;
 }
   

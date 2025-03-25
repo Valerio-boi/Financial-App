@@ -2,11 +2,13 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import {RouterModule, RouterOutlet } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from "../components/navbar/navbar.component";
+import { FooterComponent } from "../components/footer/footer.component";
 
 
 @Component({
   selector: 'app-layout',
-  imports: [CommonModule, RouterModule, RouterOutlet],
+  imports: [CommonModule, RouterModule, RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })
