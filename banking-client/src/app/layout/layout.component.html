@@ -1,7 +1,13 @@
-<app-navbar></app-navbar>
-  
-<div class="content">
-  <router-outlet></router-outlet>
-</div>
+<body>
+  <header class="navbar">
+    <app-navbar></app-navbar>
+  </header>
 
-<app-footer></app-footer>
+  <div class="container-fluid">
+    <router-outlet></router-outlet>
+  </div>
+
+  <footer class="footer">
+    <app-footer></app-footer>
+  </footer>
+</body>

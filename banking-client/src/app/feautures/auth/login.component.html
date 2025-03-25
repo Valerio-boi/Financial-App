@@ -1,28 +1,33 @@
-
-<div id="containerId"  class="container" > 
-
+<div id="containerId" class="container">
   <div class="box">
     <span class="borderLine"></span>
     <form (ngSubmit)="onLogin()">
-        <h2>Sign in</h2>
-        <div class="inputBox">
-            <input type="text" name="username" [(ngModel)]="loginObj.username" required>
-            <span>Username</span>
-            <i></i>
-        </div>
-        <div class="inputBox">
-            <input type="password" name="password" [(ngModel)]="loginObj.password" required>
-            <span>Password</span>
-            <i></i>
-        </div>
-        <div class="links">
-            <a href="#">Forgot Password</a>
-            <a href="#">Signup</a>
-        </div>
-        <input type="submit" id="submit" value="Login">
+      <h2>Sign in</h2>
+      <div class="inputBox">
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="loginObj.username"
+          required
+        />
+        <span>Username</span>
+        <i></i>
+      </div>
+      <div class="inputBox">
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="loginObj.password"
+          required
+        />
+        <span>Password</span>
+        <i></i>
+      </div>
+      <div class="links">
+        <a href="#">Forgot Password</a>
+        <a href="#">Signup</a>
+      </div>
+      <input type="submit" id="submit" value="Login" />
     </form>
   </div>
-
 </div>
-
-

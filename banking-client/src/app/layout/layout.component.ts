@@ -1,18 +1,23 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import {RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from "../components/navbar/navbar.component";
-import { FooterComponent } from "../components/footer/footer.component";
-
+import { NavbarComponent } from '../components/navbar/navbar.component';
+import { FooterComponent } from '../components/footer/footer.component';
 
 @Component({
   selector: 'app-layout',
-  imports: [CommonModule, RouterModule, RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    RouterOutlet,
+    NavbarComponent,
+    FooterComponent,
+  ],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css'
+  styleUrl: './layout.component.css',
 })
-export class LayoutComponent implements OnInit{
+export class LayoutComponent implements OnInit {
   activeIndex: number = 1;
 
   constructor() {}
