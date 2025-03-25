@@ -3,15 +3,15 @@
 
   <div class="box">
     <span class="borderLine"></span>
-    <form action="">
+    <form (ngSubmit)="onLogin()">
         <h2>Sign in</h2>
         <div class="inputBox">
-            <input type="text" required>
+            <input type="text" name="username" [(ngModel)]="loginObj.username" required>
             <span>Username</span>
             <i></i>
         </div>
         <div class="inputBox">
-            <input type="password" required>
+            <input type="password" name="password" [(ngModel)]="loginObj.password" required>
             <span>Password</span>
             <i></i>
         </div>

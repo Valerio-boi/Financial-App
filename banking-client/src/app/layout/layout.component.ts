@@ -1,12 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, NavigationEnd, RouterModule } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import {RouterModule, RouterOutlet } from '@angular/router';
+
 import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-layout',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, RouterOutlet],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })

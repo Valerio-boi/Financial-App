@@ -11,6 +11,6 @@ export class AccountService {
   constructor(private http: HttpClient) { }
 
   getAccountDetails(): Observable<any> {
-    return this.http.get(this.apiUrl);  // Sostituisci con l'endpoint reale
+    return this.http.get(this.apiUrl);  
   }
 }

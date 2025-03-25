@@ -1,32 +1,44 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AuthService } from '../../core/services/login/auth.service';
 import { FormsModule } from '@angular/forms'; 
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   templateUrl: './login.component.html',
   imports: [CommonModule, FormsModule],
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
 
-  username: string = '';
-  password: string = '';
-  errorMessage: string = '';
+    loginObj: any = {
+        username: '',
+        password: ''
+    };
 
-  constructor(private authService: AuthService, private router: Router) {}
+    router = inject(Router)
+    http = inject(HttpClient)
 
-  login() {
-    this.authService.login(this.username, this.password).subscribe(
-      (response) => {
-        this.router.navigate(['/dashboard']); 
-      },
-      (error) => {
-        this.errorMessage = 'Credenziali errate';
-      }
-    );  
-  }
+    private apiUrl = 'http://localhost:8080/api/auth/login'; 
+  
+    onLogin() { 
+      debugger;
+      this.http.post(`${this.apiUrl}?username=${this.loginObj.username}&password=${this.loginObj.password}`, {}, { responseType: 'text' }).subscribe({
+        next: (token: string) => {
+          console.log("Login Success!", token);
+          localStorage.setItem("jwt_token", token);
+          this.router.navigateByUrl("/home");
+        },
+        error: (err) => {
+          console.error("Login failed", err);
+          alert("Credenziali errate");
+        }
+      })
+    }
+
 }
