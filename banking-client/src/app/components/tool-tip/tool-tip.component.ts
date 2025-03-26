@@ -7,8 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './tool-tip.component.css',
 })
 export class ToolTipComponent {
-
   @Input() card!: string;
   @Input() ammount!: string;
-
 }

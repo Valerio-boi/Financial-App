@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
 import { CardBankComponent } from '../../components/bankCard/card-bank.component';
 import { ToolTipComponent } from '../../components/tool-tip/tool-tip.component';
-import { NewsComponent } from "../../components/news/news.component";
-import { CardNewsComponent } from "../../components/card-news/card-news.component";
+import { NewsComponent } from '../../components/news/news.component';
+
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CardBankComponent, ToolTipComponent, NewsComponent, CardNewsComponent],
+  imports: [
+    CardBankComponent,
+    ToolTipComponent,
+    NewsComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

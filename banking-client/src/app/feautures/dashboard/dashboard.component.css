@@ -4,3 +4,10 @@
   justify-content: center;
   align-items: center;
 }
+
+.element-news { 
+  padding-right: 2%; 
+  text-align: -webkit-center; 
+  align-self: center; 
+  padding-bottom: 9%;
+}

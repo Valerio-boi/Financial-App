@@ -1,11 +1,21 @@
-@if (newsList.length > 0) {  
-    @for (news of newsList; track news.id) {
-        <div class="row py-4">
-            <div class="col center-elem-col">
-                <app-card-news [title]="news.title" [desc]="news.description" [imgUrl]="news.image_url"></app-card-news>
+<div class="container">
+  <div class="main-content">
+    <h2>Banking news</h2>
+
+    @if (newsList.length > 0) {
+      @for (news of newsList; track news.id) {
+        <a href="#">
+          <div class="article">
+            <img src="{{ news.image_url }}" alt="Berita 1" />
+            <div class="text">
+              <h3>{{ news.title }}</h3>
+              <p>{{ news.description }}</p>
             </div>
-        </div>
+          </div>
+        </a>
+      }
+    } @else {
+      <p>Nessuna notizia disponibile.</p>
     }
-  } @else {
-    <p>Nessuna notizia disponibile.</p>
-  }
+  </div>
+</div>
