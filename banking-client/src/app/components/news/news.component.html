@@ -1,0 +1,11 @@
+@if (newsList.length > 0) {  
+    @for (news of newsList; track news.id) {
+        <div class="row py-4">
+            <div class="col center-elem-col">
+                <app-card-news [title]="news.title" [desc]="news.description" [imgUrl]="news.image_url"></app-card-news>
+            </div>
+        </div>
+    }
+  } @else {
+    <p>Nessuna notizia disponibile.</p>
+  }
