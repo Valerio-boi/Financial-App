@@ -1,10 +1,7 @@
 package com.financial.banking.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
@@ -15,10 +12,13 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonProperty("titolare")
-    private String titolare;
+    @Column(unique = true, nullable = false)
+    private String username;
 
-    @JsonProperty("saldo")
-    private double saldo;
+    @Column(nullable = false)
+    private String password;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }
