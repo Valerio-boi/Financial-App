@@ -21,6 +21,10 @@ public class AccountService {
         return accountRepository.findById(id).orElse(null);
     }
 
+    public Account getAccountByName(String username) {
+        return accountRepository.findByUsername(username).orElse(null);
+    }
+
     public Account createAccount(Account account) {
         return accountRepository.saveAndFlush(account);
     }
