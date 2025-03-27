@@ -12,7 +12,9 @@ import java.util.Optional;
 
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
+
     Optional<Card> getCardsById(Long id);
+
     @Modifying
     @Transactional
     @Query("UPDATE Card c SET c.balance = :balance WHERE c.id = :id")

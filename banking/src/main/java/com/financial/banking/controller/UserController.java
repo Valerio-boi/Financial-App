@@ -1,7 +1,5 @@
 package com.financial.banking.controller;
 
-
-import com.financial.banking.model.Account;
 import com.financial.banking.model.User;
 import com.financial.banking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

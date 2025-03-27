@@ -2,7 +2,6 @@ package com.financial.banking.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Data;
 
 
 @Entity

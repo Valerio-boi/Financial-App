@@ -1,7 +1,6 @@
 package com.financial.banking.util;
 
 import com.financial.banking.model.Account;
-import com.financial.banking.model.User;
 import com.financial.banking.repository.AccountRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
