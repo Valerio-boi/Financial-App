@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/private/")
+@RequestMapping("/api/public/")
 @CrossOrigin(origins = "*")
 public class AccountController {
 

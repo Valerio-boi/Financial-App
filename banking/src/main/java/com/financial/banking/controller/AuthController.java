@@ -32,7 +32,7 @@ public class AuthController {
     public LoginResponse login(@RequestBody LoginRequest request) {
         log.info("---- Start login ----");
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getPassword(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
 
         Account account = accountService.getAccountByName(request.getUsername());
