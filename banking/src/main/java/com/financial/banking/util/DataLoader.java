@@ -24,7 +24,7 @@ public class DataLoader implements CommandLineRunner {
         if (accountRepository.findByUsername("admin").isEmpty()) {
             Account admin = new Account();
             admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("admin123"));
+            //Per motivi di sicurezza ho eliminato la passowrd da mettere nel caso dovesse servire
             accountRepository.save(admin);
         }
     }

@@ -2,7 +2,7 @@ package com.financial.banking.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.financial.banking.utilEnum.CardType;
+import com.financial.banking.enums.CardType;
 import jakarta.persistence.*;
 import lombok.Data;
 

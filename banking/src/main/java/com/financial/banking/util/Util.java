@@ -5,6 +5,10 @@ import java.util.Base64;
 
 public class Util {
 
+    private Util() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static String generateSecretKey() {
         SecureRandom secureRandom = new SecureRandom();
         byte[] key = new byte[32];

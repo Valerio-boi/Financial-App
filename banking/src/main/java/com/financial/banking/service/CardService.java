@@ -3,15 +3,17 @@ package com.financial.banking.service;
 
 import com.financial.banking.model.Card;
 import com.financial.banking.repository.CardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CardService {
 
-    @Autowired
-    private CardRepository cardRepository;
+    private final CardRepository cardRepository;
+
+    public CardService(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
+    }
 
 
     public Card getCardById(Long id) throws DataAccessException {

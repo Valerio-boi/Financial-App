@@ -22,7 +22,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, UserDetailsService userDetailsService, AccountService accountService) {
+    public AuthController(AuthenticationManager authenticationManager, JwtUtils jwtUtils, AccountService accountService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
         this.accountService = accountService;
@@ -32,10 +32,10 @@ public class AuthController {
     public LoginResponse login(@RequestBody LoginRequest request) {
         log.info("---- Start login ----");
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.username, request.password)
+                new UsernamePasswordAuthenticationToken(request.getPassword(), request.getPassword())
         );
 
-        Account account = accountService.getAccountByName(request.username);
+        Account account = accountService.getAccountByName(request.getUsername());
         LoginResponse loginResponse = new LoginResponse(jwtUtils.generateToken(authentication), account.getUser().getId());
         log.info("---- End login ----");
         return loginResponse;
