@@ -1,5 +1,6 @@
 package com.financial.banking.controller;
 
+import com.financial.banking.constants.Constants;
 import com.financial.banking.exception.DatabaseException;
 import com.financial.banking.model.Transaction;
 import com.financial.banking.service.TransactionService;
@@ -32,7 +33,7 @@ public class TransactionController {
             tra = transactionService.insertTransaction(transaction);
         } catch (DatabaseException e) {
             log.error(e.getMessage());
-            throw new DatabaseException("Failed to insert transaction", e);
+            throw new DatabaseException(Constants.ERRORE_DATA_BASE, e);
         }
         log.info("---- End insertTransaction ----");
         return ResponseEntity.ok(tra);
@@ -47,7 +48,7 @@ public class TransactionController {
             return ResponseEntity.ok().body(Collections.singletonMap("message", "Transaction deleted successfully"));
         } catch (DatabaseException e) {
             log.error(e.getMessage());
-            throw new DatabaseException("Failed to delete transaction", e);
+            throw new DatabaseException(Constants.ERRORE_DATA_BASE, e);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.financial.banking.controller;
 
+import com.financial.banking.constants.Constants;
 import com.financial.banking.exception.DatabaseException;
 import com.financial.banking.model.User;
 import com.financial.banking.service.UserService;
@@ -26,7 +27,7 @@ public class UserController {
             return userService.getUserById(id);
         }catch (DatabaseException e) {
             log.error(e.getMessage());
-            throw new DatabaseException("Failed to get user", e);
+            throw new DatabaseException(Constants.ERRORE_DATA_BASE, e);
         }
     }
 

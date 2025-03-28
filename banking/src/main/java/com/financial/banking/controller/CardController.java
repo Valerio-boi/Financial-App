@@ -1,5 +1,6 @@
 package com.financial.banking.controller;
 
+import com.financial.banking.constants.Constants;
 import com.financial.banking.exception.DatabaseException;
 import com.financial.banking.model.Card;
 import com.financial.banking.service.CardService;
@@ -44,7 +45,7 @@ public class CardController {
             return ResponseEntity.ok().body(Collections.singletonMap("message", "Card updated successfully"));
         } catch (DatabaseException e) {
             log.error(e.getMessage());
-            throw new DatabaseException("Failed to update card", e);
+            throw new DatabaseException(Constants.ERRORE_DATA_BASE, e);
         }
     }
 
