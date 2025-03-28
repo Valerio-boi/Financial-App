@@ -1,5 +1,6 @@
 package com.financial.banking.service;
 
+import com.financial.banking.exception.AccountNotFoundException;
 import com.financial.banking.model.Account;
 import com.financial.banking.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +14,11 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
-    }
-
-    public Account getAccountById(Long id) {
-        return accountRepository.findById(id).orElse(null);
-    }
-
-    public Account getAccountByName(String username) {
+    public Account getAccountByName(String username) throws AccountNotFoundException{
         return accountRepository.findByUsername(username).orElse(null);
     }
 
-    public Account createAccount(Account account) {
+    public Account createAccount(Account account) throws AccountNotFoundException{
         return accountRepository.saveAndFlush(account);
     }
 
