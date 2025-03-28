@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -35,7 +36,7 @@ public class CardController {
 
 
     @PostMapping(value = "/update-balance", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateCard(@RequestBody Card card) {
+    public ResponseEntity<Map<String, String>> updateCard(@RequestBody Card card) {
         log.info("---- Start updateCard ----");
         try {
             cardService.updateCard(card);

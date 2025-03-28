@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -38,7 +39,7 @@ public class TransactionController {
     }
 
     @DeleteMapping(value = "/delete-transaction", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?>  deleteTransaction(@RequestParam Long id) {
+    public ResponseEntity<Map<String, String>>  deleteTransaction(@RequestParam Long id) {
         log.info("---- Start deleteTransaction ----");
         try {
             transactionService.removeTransaction(id);
