@@ -12,9 +12,6 @@ import java.util.Random;
 @Table(name = "users")
 @Data
 public class User{
-
-    public User() {}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,12 +38,12 @@ public class User{
             this.iban = generateRandomIban();
         }
     }
-
+    private Random random = new Random();
     private String generateRandomIban() {
         String countryCode = "IT";
         String bankCode = "12345";
         String branchCode = "67890";
-        String accountNumber = String.format("%012d", new Random().nextLong(999999999999L));
+        String accountNumber = String.format("%012d", this.random.nextLong(999999999999L));
 
         return countryCode + bankCode + branchCode + accountNumber;
     }
