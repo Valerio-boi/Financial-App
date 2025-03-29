@@ -1,4 +1,4 @@
-<div class="row" style="height: 100vh">
+<!-- <div class="row" style="height: 100vh">
   <div class="col" style="padding-top: 5%">
     <div class="row py-5">
       <div class="col center-elem-col">
@@ -40,4 +40,65 @@
   <div class="col element-news">
     <app-news></app-news>
   </div>
+</div> -->
+
+<div class="row">
+  <div class="col">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col center-elem-col">
+              <app-card-bank [diffStyle]="'flip-card-front'"></app-card-bank>
+            </div>
+            <div class="w-100"></div>
+            <div class="col center-elem-col p-3">
+              <app-tool-tip
+                [ammount]="user.cards[0]?.balance"
+                [card]="'Carta di debito'"
+              ></app-tool-tip>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <div class="col center-elem-col">
+              <app-card-bank [diffStyle]="'flip-card-front-2'"></app-card-bank>
+            </div>
+
+            <div class="w-100"></div>
+
+            <div class="col center-elem-col p-3">
+              <app-tool-tip
+                [ammount]="user.cards[2]?.balance"
+                [card]="'Carta prepagata'"
+              ></app-tool-tip>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row"> 
+            <div class="col center-elem-col ">
+              <app-card-bank [diffStyle]="'flip-card-front-1'"></app-card-bank>
+            </div>
+
+            <div class="w-100"></div>
+
+            <div class="col center-elem-col p-3">
+              <app-tool-tip
+                [ammount]="user.cards[1]?.balance"
+                [card]="'Carta virtuale'"
+              ></app-tool-tip>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">  </div>
+  <div class="w-100"></div>
+  <div class="col  p-5">
+    <app-transaction [transactions]="getAllTransactions()"></app-transaction>
+  </div>
+  <div class="col p-4"> <app-news></app-news> </div>
 </div>

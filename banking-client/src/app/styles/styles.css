@@ -123,6 +123,13 @@ body {
   width: 100%;
 }
 
+.container-fluid {
+  margin-top: 60px !important;
+  padding-top: 3% !important;
+  flex: 1;
+  overflow-y: auto;
+}
+
 main {
   display: flex;
   justify-content: center;

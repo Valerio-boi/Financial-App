@@ -14,52 +14,55 @@ import { RegisterService } from '../../services/register.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-    username = '';
-    password = '';
+  username = '';
+  password = '';
 
-    registerData: RegisterRequest = {
-      username: '',
-      password: '',
-      user: {
-        name: '',
-        email: '',
-        cognome: '',
-        cards: [
-          { type: 'DEBIT', balance: 0.0 },
-          { type: 'VIRTUAL', balance: 0.0 },
-          { type: 'PREPAID', balance: 0.0 }
-        ]
-      }
-    };
-  
-    constructor(private authService: AuthService, private registerService: RegisterService) {}
-    router = inject(Router);
+  registerData: RegisterRequest = {
+    username: '',
+    password: '',
+    user: {
+      name: '',
+      email: '',
+      cognome: '',
+      cards: [
+        { type: 'DEBIT', balance: 0.0 },
+        { type: 'VIRTUAL', balance: 0.0 },
+        { type: 'PREPAID', balance: 0.0 },
+      ],
+    },
+  };
 
+  constructor(
+    private authService: AuthService,
+    private registerService: RegisterService,
+  ) {}
+  router = inject(Router);
 
-    login() {
-      this.authService.login(this.username, this.password).subscribe({
-        next: (response) => {
-          console.log(btoa(this.username + ':' + this.password))
-          localStorage.setItem('token', btoa(this.username + ':' + this.password));         
-          this.router.navigateByUrl('/home/dashboard');
-        },
-        error: (err) => {
-          console.error('Errore di login:', err);
-          alert('Credenziali errate');
-        }
-      });
-    }
+  login() {
+    this.authService.login(this.username, this.password).subscribe({
+      next: (response) => {
+        console.log(btoa(this.username + ':' + this.password));
+        localStorage.setItem(
+          'token',
+          btoa(this.username + ':' + this.password),
+        );
+        this.router.navigateByUrl('/home/dashboard');
+      },
+      error: (err) => {
+        console.error('Errore di login:', err);
+        alert('Credenziali errate');
+      },
+    });
+  }
 
-
-    onRegister() {
-      this.registerService.register(this.registerData).subscribe({
-        next: (response) => {
-          console.log('Registrazione avvenuta con successo:', response);
-        },
-        error: (error) => {
-          console.error('Errore nella registrazione:', error);
-        }
-      });
-    }
-
+  onRegister() {
+    this.registerService.register(this.registerData).subscribe({
+      next: (response) => {
+        console.log('Registrazione avvenuta con successo:', response);
+      },
+      error: (error) => {
+        console.error('Errore nella registrazione:', error);
+      },
+    });
+  }
 }

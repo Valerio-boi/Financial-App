@@ -5,7 +5,7 @@ import { CardBankComponent } from '../bankCard/card-bank.component';
 
 @Component({
   selector: 'app-news',
-  imports: [CommonModule, CardBankComponent],
+  imports: [CommonModule],
   templateUrl: './news.component.html',
   styleUrl: './news.component.css',
 })

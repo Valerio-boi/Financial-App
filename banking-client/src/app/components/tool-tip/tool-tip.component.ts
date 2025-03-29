@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ToolTipComponent {
   @Input() card!: string;
-  @Input() ammount!: string;
+  @Input() ammount!: number;
 }

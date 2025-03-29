@@ -17,6 +17,7 @@ public class Transaction implements Serializable {
 
     private double amount;
     private String description;
+    private String categoria;
     private LocalDateTime timestamp;
 
     @JsonBackReference

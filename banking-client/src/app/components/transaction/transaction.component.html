@@ -1,88 +1,110 @@
-<table class="table table-striped">
+<table id="tableTran" class="table table-striped">
   <thead>
     <tr>
       <th scope="col">Data</th>
       <th scope="col">Carta</th>
       <th scope="col">Descrizione</th>
+      <th scope="col">Categoria</th>
       <th scope="col">Importo</th>
+      <th scope="col">Elimina</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">10/01/2025</th>
-      <td>Debito</td>
-      <td>Nike</td>
-      <td>20$</td>
-    </tr>
-    <tr>
-      <th scope="row">01/02/2025</th>
-      <td>Virtuale</td>
-      <td>Adidas</td>
-      <td>60$</td>
-    </tr>
-    <tr>
-      <th scope="row">02/03/2025</th>
-      <td>Prepagata</td>
-      <td>KFC</td>
-      <td>10$</td>
-    </tr>
-    <tr>
-      <th scope="row">10/01/2025</th>
-      <td>Debito</td>
-      <td>Nike</td>
-      <td>20$</td>
-    </tr>
-    <tr>
-      <th scope="row">01/02/2025</th>
-      <td>Virtuale</td>
-      <td>Adidas</td>
-      <td>60$</td>
-    </tr>
-    <tr>
-      <th scope="row">02/03/2025</th>
-      <td>Prepagata</td>
-      <td>KFC</td>
-      <td>10$</td>
-    </tr>
-    <tr>
-      <th scope="row">10/01/2025</th>
-      <td>Debito</td>
-      <td>Nike</td>
-      <td>20$</td>
-    </tr>
-    <tr>
-      <th scope="row">01/02/2025</th>
-      <td>Virtuale</td>
-      <td>Adidas</td>
-      <td>60$</td>
-    </tr>
-    <tr>
-      <th scope="row">02/03/2025</th>
-      <td>Prepagata</td>
-      <td>KFC</td>
-      <td>10$</td>
-    </tr>
-    <tr>
-      <th scope="row">10/01/2025</th>
-      <td>Debito</td>
-      <td>Nike</td>
-      <td>20$</td>
-    </tr>
-  </tbody>
+    <tbody id="bodyTable" *ngIf="transactions.length > 0; else noData">
+      <tr *ngFor="let transaction of transactions | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+        <th scope="row">{{ transaction.formattedDate }}</th>
+        <td>{{ transaction.cardType }}</td>
+        <td>{{ transaction.description }}</td>
+        <td>{{ transaction.categoria }}</td>
+        <td>{{ transaction.amount }}€</td>
+        <td><button class="btn btn-danger" (click)="deleteTransaction(transaction.id)"><i class="bi bi-trash"></i></button></td>
+      </tr>
+    </tbody>
+
+    <ng-template #noData>
+      <tr>
+        <td colspan="4" class="text-center">No data found</td>
+      </tr>
+    </ng-template>
 </table>
+<div class="d-flex justify-content-between align-items-center"> 
+<pagination-controls (pageChange)="page = $event" [ngClass]="'text-white'"></pagination-controls>
 
 <div class="container">
-  <div class="row">
-    <div class="col-sm">
-      <app-button-transaction
-        [label]="'+ Transazione'"
-      ></app-button-transaction>
-    </div>
-    <div class="col-sm"></div>
-    <div class="col-sm">
-      <app-button-transaction
-        [label]="'- Transazione'"
-      ></app-button-transaction>
+  <div class="row d-flex justify-content-end w-100">
+
+      <button id="buttonMio"  data-bs-toggle="modal"  data-bs-target="#transactionInsert" class="mx-2">
+        + Transazione
+      </button>
+  </div>
+</div>
+
+</div>
+
+
+<!-- Modal inserimento transizione-->
+<div class="modal fade" id="transactionInsert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Form registrazione</h1>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <div class="inputGroup">
+              <input
+                type="text"
+                [(ngModel)]="transaction.amount"
+                name="amount"
+                required
+                autocomplete="off"
+              />
+              <label for="amount">Importo</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="inputGroup">
+              <input
+                type="text"
+                [(ngModel)]="transaction.description"
+                name="description"
+                required
+                autocomplete="off"
+              />
+              <label for="description">Descrizione</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="inputGroup">
+              <select class="form-select" aria-label="Default select example" [(ngModel)]="transaction.categoria" name="categoria">
+                <option selected>Categoria</option>
+                <option value="Casa">Casa</option>
+                <option value="Vestiti">Vestiti</option>
+                <option value="Sport">Sport</option>
+                <option value="Alimenti">Alimenti</option>
+                <option value="Finanziamenti">Finanziamenti</option>
+                <option value="Bollette">Bollette</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="inputGroup">
+              <select class="form-select" aria-label="Default select example" [(ngModel)]="transaction.cardType" name="cardType">
+                <option selected>Carta</option>
+                <option value="DEBIT">DEBIT</option>
+                <option value="PREPAID">PREPAID</option>
+                <option value="VIRTUAL">VIRTUAL</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="submitTransaction()">Inserisci</button>
+      </div>
     </div>
   </div>
 </div>

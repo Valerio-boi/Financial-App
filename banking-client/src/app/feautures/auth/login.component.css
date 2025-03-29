@@ -227,7 +227,6 @@ app-login {
   opacity: 0.8;
 }
 
-
 .inputGroup {
   font-family: "Segoe UI", sans-serif !important;
   margin: 1em 0 1em 0;
@@ -268,23 +267,21 @@ app-login {
   border-color: rgb(150, 150, 200);
 }
 
-
-
 .modal-footer {
   display: flex;
   flex-shrink: 0;
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  padding: calc(var(--bs-modal-padding) - var(--bs-modal-footer-gap)* .5) !important;
+  padding: calc(
+    var(--bs-modal-padding) - var(--bs-modal-footer-gap) * 0.5
+  ) !important;
   background-color: var(--bs-modal-footer-bg);
-  border-top: var(--bs-modal-footer-border-width) solid var(--bs-modal-footer-border-color);
+  border-top: var(--bs-modal-footer-border-width) solid
+    var(--bs-modal-footer-border-color);
   border-bottom-right-radius: var(--bs-modal-inner-border-radius);
   border-bottom-left-radius: var(--bs-modal-inner-border-radius);
 }
-
-
-
 
 button {
   --primary-color: #645bff;

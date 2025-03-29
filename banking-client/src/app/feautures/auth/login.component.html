@@ -4,12 +4,7 @@
     <form (ngSubmit)="login()">
       <h2>Sign in</h2>
       <div class="inputBox">
-        <input
-          type="text"
-          name="username"
-          [(ngModel)]="username"
-          required
-        />
+        <input type="text" name="username" [(ngModel)]="username" required />
         <span>Username</span>
         <i></i>
       </div>
@@ -43,7 +38,7 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered modal-lg">
-    <div class="modal-content">
+    <div class="modal-content p-3">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">
           Form registrazione
@@ -53,13 +48,23 @@
         <div class="row">
           <div class="col">
             <div class="inputGroup">
-              <input type="text" required="" autocomplete="off" [(ngModel)]="registerData.user.name"/>
+              <input
+                type="text"
+                required=""
+                autocomplete="off"
+                [(ngModel)]="registerData.user.name"
+              />
               <label for="name">Nome</label>
             </div>
           </div>
           <div class="col">
             <div class="inputGroup">
-              <input type="text" required="" autocomplete="off" [(ngModel)]="registerData.user.cognome"/>
+              <input
+                type="text"
+                required=""
+                autocomplete="off"
+                [(ngModel)]="registerData.user.cognome"
+              />
               <label for="name">Cognome</label>
             </div>
           </div>
@@ -68,13 +73,23 @@
         <div class="row">
           <div class="col">
             <div class="inputGroup">
-              <input type="text" required="" autocomplete="off" [(ngModel)]="registerData.user.email"/>
+              <input
+                type="text"
+                required=""
+                autocomplete="off"
+                [(ngModel)]="registerData.user.email"
+              />
               <label for="name">Email</label>
             </div>
           </div>
           <div class="col">
             <div class="inputGroup">
-              <input type="text" required="" autocomplete="off" [(ngModel)]="registerData.username"/>
+              <input
+                type="text"
+                required=""
+                autocomplete="off"
+                [(ngModel)]="registerData.username"
+              />
               <label for="name">Username</label>
             </div>
           </div>
@@ -83,13 +98,23 @@
         <div class="row">
           <div class="col">
             <div class="inputGroup">
-              <input type="password" required="" autocomplete="off" [(ngModel)]="registerData.password"/>
+              <input
+                type="password"
+                required=""
+                autocomplete="off"
+                [(ngModel)]="registerData.password"
+              />
               <label for="name">Password</label>
             </div>
           </div>
           <div class="col">
             <div class="inputGroup">
-              <input type="password" required="" autocomplete="off" [(ngModel)]="registerData.password"/>
+              <input
+                type="password"
+                required=""
+                autocomplete="off"
+                [(ngModel)]="registerData.password"
+              />
               <label for="name">Conferma password</label>
             </div>
           </div>
@@ -99,8 +124,7 @@
         <button (click)="onRegister()">
           Sign in
           <div class="arrow-wrapper">
-              <div class="arrow"></div>
-      
+            <div class="arrow"></div>
           </div>
         </button>
       </div>
