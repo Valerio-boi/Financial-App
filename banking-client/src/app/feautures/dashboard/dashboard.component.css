@@ -6,15 +6,17 @@
 }
 
 .element-news {
-  padding-right: 2%;
   text-align: -webkit-center;
   align-self: center;
   padding-bottom: 15.5%;
 }
 
 .element-transaction {
-  padding-right: 2%;
   text-align: -webkit-center;
   align-self: center;
   padding-bottom: 15%;
+}
+
+#rowMalefica {
+  max-width: 100%;
 }
