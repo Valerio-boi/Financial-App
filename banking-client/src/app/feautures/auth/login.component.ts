@@ -39,8 +39,8 @@ export class LoginComponent {
     login() {
       this.authService.login(this.username, this.password).subscribe({
         next: (response) => {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('user_id', response.userId.toString());
+          console.log(btoa(this.username + ':' + this.password))
+          localStorage.setItem('token', btoa(this.username + ':' + this.password));         
           this.router.navigateByUrl('/home/dashboard');
         },
         error: (err) => {
