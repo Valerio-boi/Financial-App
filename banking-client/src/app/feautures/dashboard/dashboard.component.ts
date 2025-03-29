@@ -6,6 +6,7 @@ import { TransactionComponent } from '../../components/transaction/transaction.c
 import { UserService } from '../../services/user.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ChartExpensesComponent } from "../../components/chart-expenses/chart-expenses.component";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,36 +27,32 @@ export class DashboardComponent implements OnInit {
   user: any = null;
   transactions: any[] = [];
   transactionsLoaded: boolean = false;
+  private userSubscription!: Subscription;
 
   constructor(private userService: UserService, private datePipe: DatePipe) {}
 
   ngOnInit() {
-    // Verifica se l'ID dell'utente è presente
+    this.loadUser();
+
+    this.userSubscription = this.userService.onUserUpdate().subscribe(() => {
+      this.loadUser();
+    });
+  }
+
+  loadUser() {
     const userId = localStorage.getItem('user_id');
     if (userId) {
       this.userService.getUserById(parseInt(userId)).subscribe({
         next: (data) => {
           this.userService.setUser(data);
-          // Dopo che l'utente è stato caricato, carica le transazioni
+          this.user = data;
           this.loadTransactions();
         },
-        error: (error) => {
-          console.error('Errore nel recupero utente', error);
-        },
+        error: (error) => console.error('Errore nel recupero utente', error)
       });
     }
-
-    // Ascolta gli aggiornamenti dell'utente
-    this.userService.user$.subscribe(user => {
-      this.user = user;
-      // Carica le transazioni se non sono già caricate
-      if (!this.transactionsLoaded && this.user?.cards?.length) {  // Controlla se le carte dell'utente sono disponibili
-        this.loadTransactions();
-      }
-    });
   }
 
-  // Funzione per caricare le transazioni
   loadTransactions() {
     if (this.user && this.user.cards) {
       this.transactions = this.getAllTransactions();
@@ -64,7 +61,6 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Estrai tutte le transazioni dall'utente
   getAllTransactions() {
     return this.user?.cards.flatMap((card: any) =>
       card.transactions.map((transaction: any) => ({
@@ -75,7 +71,7 @@ export class DashboardComponent implements OnInit {
     ) || [];
   }
 
-  // Funzione per formattare la data
+
   formatDate(date: any): string {
     if (Array.isArray(date)) {
       const formattedDate = new Date(date[0], date[1] - 1, date[2], date[3], date[4], date[5]);

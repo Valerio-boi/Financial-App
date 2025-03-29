@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables)
@@ -15,15 +15,20 @@ export class ChartExpensesComponent  implements OnInit{
     this.createChart();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['transactions']) {
+      this.updateChart();
+    }
+  }
+
   public barChart: any;
 
   @Input() transactions: any[] = [];
 
 
   aggregateData() {
-    const categorySums: Record<string, number> = {}; // Specifica il tipo dell'oggetto
+    const categorySums: Record<string, number> = {}; 
 
-    // Riduci le transazioni per sommare gli importi per categoria
     this.transactions.forEach((transaction) => {
       const categoria = transaction.categoria;
       if (categorySums[categoria]) {
@@ -33,7 +38,6 @@ export class ChartExpensesComponent  implements OnInit{
       }
     });
 
-    // Restituisci un array con le categorie e le somme degli importi
     return Object.keys(categorySums).map((category) => ({
       category,
       sum: categorySums[category],
@@ -43,15 +47,14 @@ export class ChartExpensesComponent  implements OnInit{
   createChart() {
     const aggregatedData = this.aggregateData();
 
-    // Creazione del grafico con i dati aggregati per categoria
     this.barChart = new Chart('barChart', {
       type: 'bar',
       data: {
-        labels: aggregatedData.map((data) => data.category), // Etichette (categorie)
+        labels: aggregatedData.map((data) => data.category), 
         datasets: [
           {
             label: 'Spese per Categoria',
-            data: aggregatedData.map((data) => data.sum), // Somma degli importi per categoria
+            data: aggregatedData.map((data) => data.sum), 
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(255, 159, 64, 0.2)',
@@ -84,5 +87,17 @@ export class ChartExpensesComponent  implements OnInit{
       },
     });
   }
+
+  updateChart() {
+    if (this.barChart) {
+      const aggregatedData = this.aggregateData();
+      this.barChart.data.labels = aggregatedData.map((data) => data.category);
+      this.barChart.data.datasets[0].data = aggregatedData.map((data) => data.sum);
+      this.barChart.update();
+    } else {
+      this.createChart();
+    }
+  }
+
 
 }

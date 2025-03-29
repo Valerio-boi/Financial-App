@@ -41,7 +41,6 @@ export class LoginComponent {
   login() {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
-        console.log(btoa(this.username + ':' + this.password));
         localStorage.setItem(
           'token',
           btoa(this.username + ':' + this.password),

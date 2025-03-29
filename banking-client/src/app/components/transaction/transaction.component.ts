@@ -53,6 +53,7 @@ export class TransactionComponent {
       .subscribe({
         next: (response) => {
           console.log('Transazione inserita con successo', response);
+          this.userService.notifyUserUpdate(); 
           this.resetForm();
         },
         error: (error) => {
@@ -63,8 +64,6 @@ export class TransactionComponent {
 
   getSelectedCard() {
     const selectedCardType = this.transaction.cardType;
-
-    // Trova la carta selezionata in base al tipo (ad esempio, "DEBIT", "PREPAID", "VIRTUAL")
     return this.userService.getUser().cards.find((card:any) => card.type === selectedCardType);
   }
 
@@ -94,6 +93,7 @@ export class TransactionComponent {
           next: () => {
             this.transactions = this.transactions.filter(t => t.id !== transactionId);
             console.log(`Transazione con ID ${transactionId} eliminata`);
+            this.userService.notifyUserUpdate(); 
           },
           error: (err) => console.error('Errore eliminazione transazione', err),
         });
