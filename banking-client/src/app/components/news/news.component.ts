@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NewsService } from '../../services/news.service';
 import { CommonModule } from '@angular/common';
 import { CardBankComponent } from '../bankCard/card-bank.component';
+import { News } from '../../models/news.model';
 
 @Component({
   selector: 'app-news',
@@ -10,14 +11,18 @@ import { CardBankComponent } from '../bankCard/card-bank.component';
   styleUrl: './news.component.css',
 })
 export class NewsComponent {
-  newsList: any[] = [];
+  newsList: News[] = [];
 
   constructor(private newsService: NewsService) {}
 
   ngOnInit() {
-    this.newsService.getFinancialNews().subscribe({
-      next: (data) => (this.newsList = data.data),
-      error: (err) => console.error('Errore nel recupero delle news:', err),
+    this.fetchNewsFromDB();
+  }
+
+  fetchNewsFromDB() {
+    this.newsService.getNews().subscribe({
+      next: (news) => (this.newsList = news),
+      error: (err) => console.error('Errore nel recupero delle news dal DB:', err),
     });
   }
 }

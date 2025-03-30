@@ -1,24 +1,23 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { News } from '../models/news.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NewsService {
-  private API_URL = 'https://api.marketaux.com/v1/news/all';
-  private API_TOKEN = 'uOolCbU4AangzAY8lciDekXkpsVSlNzrN7oufb3K';
+  private API_URL = 'http://localhost:8080/api/private/get-news'; 
 
   constructor(private http: HttpClient) {}
 
-  getFinancialNews(): Observable<any> {
-    const params = {
-      symbols: 'TSLA,AMZN,MSFT',
-      filter_entities: 'true',
-      language: 'en',
-      api_token: this.API_TOKEN,
-    };
+  getNews(): Observable<News[]> {
+    const credentials = localStorage.getItem('token');
 
-    return this.http.get<any>(this.API_URL, { params });
+    const headers = new HttpHeaders({
+      Authorization: `Basic ${credentials}`,
+    });
+
+    return this.http.get<News[]>(this.API_URL, { headers });
   }
 }
