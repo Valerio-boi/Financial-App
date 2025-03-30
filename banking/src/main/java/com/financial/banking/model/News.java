@@ -9,6 +9,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 
 @Data
@@ -22,13 +23,12 @@ public class News implements Serializable {
     private String imgUrl;
     private String title;
     private String content;
-    private LocalDateTime date;
+    private ZonedDateTime publishedAt;
 
     public News(NewsDTO dto) {
         this.imgUrl = dto.getImage_url();
         this.title = dto.getTitle();
         this.content = dto.getDescription();
-        this.date = LocalDateTime.parse(dto.getPublished_at());
     }
 
     public News() {

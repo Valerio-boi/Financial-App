@@ -49,10 +49,10 @@ public class NewsService {
                         .toList();
 
                 newsRepository.saveAll(newsList);
-                System.out.println("✅ News aggiornate nel DB!");
+                log.info("✅ News aggiornate nel DB!");
             }
         } catch (Exception e) {
-            System.err.println("⚠️ Errore nel recupero delle news: " + e.getMessage());
+            log.error("⚠️ Errore nel recupero delle news: " + e.getMessage());
         }
     }
 

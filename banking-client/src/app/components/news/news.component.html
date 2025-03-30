@@ -3,7 +3,7 @@
     <h2>Banking news</h2>
 
     @if (newsList.length > 0) {
-      @for (news of newsList; track news.id) {
+      @for (news of newsList.slice(0, 3); track news.id) {
         <a href="#">
           <div class="article">
             <img src="{{ news.imgUrl }}" alt="Berita 1" />

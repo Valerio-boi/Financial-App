@@ -1,1 +1,117 @@
-<p>loans works!</p>
+   <div class="container my-5">
+    <div id="app">
+      <div class="row mb-5">
+        <h5 class="col-12 mb-4">How much capital are you looking for?</h5>
+        <div class="col-12">
+          <div class="row align-items-center mb-4">
+            <div class="col-12 col-sm-4">
+              <div class="fg">
+                <select name="currency" id="currency" (change)="setCurrency($event)">
+                  <option value="EUR" [selected]="currency === 'EUR'">EUR</option>
+                  <option value="CHF" [selected]="currency === 'CHF'">CHF</option>
+                </select>
+                <div id="amount">
+                    {{ formatter(amount) }}
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-8">
+              <div class="length range__slider">
+                <input 
+                       class="slider" 
+                       name="amount"
+                       type="range" 
+                       min="20000" 
+                       max="1000000" 
+                       step="20000" 
+                       value="20000"
+                       [(ngModel)]="amount"
+                       (input)="setAmount($event)" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <h5 class="col-12">Over what payback period?</h5>
+      </div>
+      
+      <div class="row mb-5">
+        <div class="col-12">
+            <div class="length range__slider">
+                <input 
+                       class="slider" 
+                       name="period"
+                       type="range" 
+                       min="12" 
+                       max="60" 
+                       step="6"
+                       value="12"
+                       [(ngModel)]="period"
+                       (input)="setPeriod($event)" />
+              
+              </div>
+            <div id="period" class="text-center color-accent">
+                {{ period }} months
+            </div>
+        </div>
+      </div>
+      
+      <div class="row mb-4">
+        <h5 class="col-12">
+          Assumed risk rating?
+        </h5>
+      </div>
+      
+       <div id="levels" class="row mb-4">
+            <div *ngFor="let riskLevel of riskLevels; let i = index" class="col-2">
+              <div 
+                [class.selected]="risk === riskLevel" 
+                class="rating" 
+                (click)="setRiskLevel(i)">
+                {{ i + 1 }}
+              </div>
+            </div>
+        </div>
+      
+      <div class="row risk-info mb-5">
+        <div class="col-2 text-center">LOW</div>
+        <div class="col-8">
+          <div class="arrow-line mt-2">
+            <div class="arrow-top"></div>
+          </div>
+        </div>
+        <div class="col-2 text-center">HIGH</div>
+      </div>
+      
+      <div class="row">
+        <div class="col-12 col-md-7 text-center">
+          <div class="report">
+            <h5>
+              Indicative monthly cost
+            </h5>
+            <h2 id="total" class="color-accent strong">{{ total }}</h2>
+            <div class="row info">
+              <div id="nominal" class="col-12 text-center">
+                {{ (risk.from * 100).toFixed(1) }}% - {{ (risk.to * 100).toFixed(1) }}%
+              </div>
+  
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-5 mt-3 mt-md-0">
+          <a href="#" class="apply">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="info">
+              Start our quick application process to get your personalized best rate FEES may apply.
+            </div>
+            APPLY NOW
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
