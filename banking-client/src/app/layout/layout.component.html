@@ -4,7 +4,9 @@
   </header>
 
   <div class="container-fluid">
-    <router-outlet></router-outlet>
+    <div [ngClass]="{ 'custom-bg': isTargetPage }">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 
   <!-- <footer class="footer">

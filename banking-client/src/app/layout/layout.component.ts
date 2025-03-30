@@ -19,6 +19,7 @@ import { FooterComponent } from '../components/footer/footer.component';
 })
 export class LayoutComponent implements OnInit {
   activeIndex: number = 1;
+  isTargetPage = false;
 
   constructor() {}
 
