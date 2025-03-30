@@ -4,6 +4,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 import { FooterComponent } from '../components/footer/footer.component';
+import { LoansComponent } from "../feautures/loans/loans.component";
 
 @Component({
   selector: 'app-layout',
@@ -13,7 +14,8 @@ import { FooterComponent } from '../components/footer/footer.component';
     RouterOutlet,
     NavbarComponent,
     FooterComponent,
-  ],
+    LoansComponent
+],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css',
 })
