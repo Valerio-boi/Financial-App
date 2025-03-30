@@ -1,4 +1,4 @@
-   <div id="loansDiv" class="container my-5">
+   <div id="loansDiv" class="container my-5" *ngIf="!hasActiveLoan; else activeLoanTemplate">
     <div id="app">
       <div class="row mb-5">
         <h5 class="col-12 mb-4 text-white">How much capital are you looking for?</h5>
@@ -173,3 +173,55 @@
     </div>
   </div>
 </div>
+
+
+<ng-template #activeLoanTemplate>
+    <div class="row">
+      <div class="col-6 p-5">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Capitale</th>
+              <th>Totale Rate</th>
+              <th>Rate Pagate</th>
+              <th>Costo Mensile</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ activeLoan.capitale }} EUR</td>
+              <td>{{ activeLoan.totRate }}</td>
+              <td>{{ activeLoan.ratePagate }}</td>
+              <td>{{ activeLoan.costoMensile }} EUR</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <app-chart-loans *ngIf="activeLoan" [activeLoan]="activeLoan"></app-chart-loans>
+      </div>
+      <div class="col-6 p-5">
+        <div class="table-responsive-md">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Mese</th>
+              <th>Importo</th>
+              <th>Residuo Rimanente</th>
+              <th>Paga</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of tableData">
+              <td>{{ row.mese }}</td>
+              <td>{{ row.importo }} EUR</td>
+              <td>{{ row.residuo }} EUR</td>
+              <td>
+                <button type="button" class="btn btn-success">Paga ora</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+    </div>
+</ng-template>

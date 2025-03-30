@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LoansService {
   private apiUrl = 'http://localhost:8080/api/private/insert-finanziamento'; 
+  private apiUrlGet = 'http://localhost:8080/api/private/finanziamento'; 
 
   constructor(private http: HttpClient) {}
 
@@ -19,6 +20,18 @@ export class LoansService {
     });
 
     return this.http.post<any>(this.apiUrl, loanData, { headers });
+  }
+
+
+
+  getLoansById(id: number): Observable<any> {
+    const credentials = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Basic ${credentials}`,
+    });
+
+    return this.http.get<any>(`${this.apiUrlGet}?id=${id}`, {headers});
   }
 
 }

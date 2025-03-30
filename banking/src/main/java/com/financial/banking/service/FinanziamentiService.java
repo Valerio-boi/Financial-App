@@ -49,4 +49,9 @@ public class FinanziamentiService {
 
     }
 
+
+    public Optional<Finanziamenti> getFinanziamentiById(Long id) {
+        return finanziamentiRepository.findById(id);
+    }
+
 }

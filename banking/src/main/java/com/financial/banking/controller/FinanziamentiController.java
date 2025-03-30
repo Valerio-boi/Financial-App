@@ -40,4 +40,18 @@ public class FinanziamentiController {
         }
     }
 
+
+    @GetMapping(value = "/finanziamento")
+    public ResponseEntity<Finanziamenti> getFinanziamentoById(@RequestParam  Long id) {
+        log.info("---- Start getFinanziamentoById ----");
+        try {
+            Finanziamenti finanziamento = finanziamentiService.getFinanziamentiById(id).orElse(null);
+            log.info("---- End getFinanziamentoById ----");
+            return ResponseEntity.ok().body(finanziamento);
+        } catch (DatabaseException e) {
+            log.error(e.getMessage());
+            throw new DatabaseException(Constants.ERRORE_DATA_BASE, e);
+        }
+    }
+
 }

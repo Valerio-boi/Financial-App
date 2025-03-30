@@ -3,18 +3,24 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoansService } from '../../services/loans.service';
 import { UserService } from '../../services/user.service';
+import { ChartLoansComponent } from "../../components/chart-loans/chart-loans.component";
 
 @Component({
   selector: 'app-loans',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ChartLoansComponent],
   standalone: true,
   templateUrl: './loans.component.html',
   styleUrl: './loans.component.scss'
 })
 export class LoansComponent implements OnInit {
+
   currency: string = 'EUR';
   amount: number = 20000;
   period: number = 12;
+  hasActiveLoan: boolean = false;
+  activeLoan: any = null;
+  public tableData: any[] = [];
+
   riskLevels = [
     { from: 0.02, to: 0.04 },
     { from: 0.04, to: 0.06 },
@@ -30,8 +36,57 @@ export class LoansComponent implements OnInit {
               private userService: UserService) {}
 
   ngOnInit() {
+    this.checkUserLoan();
     this.calculateLoan();
   }
+
+
+  checkUserLoan() {
+    const userId = localStorage.getItem('user_id');
+
+    if (userId) {
+      this.userService.getUserById(Number(userId)).subscribe({
+        next: (loan) => {
+          if (loan) {
+            this.hasActiveLoan = true;
+            if(loan.finanziamenti){
+            this.loanService.getLoansById(loan.finanziamenti).subscribe({
+              next: (data) => {
+                this.activeLoan = data;
+                this.generateTableData();
+              },
+              error: (error) => console.error('Errore nel recupero finanziamento', error)
+            });
+          }
+          console.log(this.activeLoan)
+          } else {
+            this.hasActiveLoan = false;
+          }
+        },
+        error: (err) => {
+          console.error('Errore nel recupero del finanziamento', err);
+        }
+      });
+    }
+  }
+
+  generateTableData() {
+    const totRate = this.activeLoan.totRate;
+    const capitale = this.activeLoan.capitale; 
+    const costoMensile = this.activeLoan.costoMensile; 
+
+    this.tableData = Array.from({ length: totRate }, (_, i) => {
+      const mese = i + 1;
+      const residuo = Math.max(0, capitale - costoMensile * mese);
+
+      return {
+        mese: `Mese ${mese}`,
+        importo: costoMensile,
+        residuo: residuo,
+      };
+    });
+  }
+
 
   getSelectedCard() {
     const selectedCardType = this.cardType;
