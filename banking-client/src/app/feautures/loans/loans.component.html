@@ -141,7 +141,7 @@
             <tr class="table-light">
               <th scope="row">{{amount}}</th>
               <td>{{period}}</td>
-              <td>Otto</td>
+              <td>{{total}}</td>
               <td>{{ (risk.from * 100).toFixed(1) }}%</td>
 
             </tr>
@@ -149,6 +149,16 @@
           </tbody>
         </table>
 
+        <h5 class="col-12">Seleziona la carta dove vuoi accreditare il finanziamento:</h5>
+
+        <div class="inputGroup">
+          <select class="form-select" aria-label="Default select example" [(ngModel)]="cardType" name="card">
+            <option selected>Carta</option>
+            <option value="DEBIT">DEBIT</option>
+            <option value="PREPAID">PREPAID</option>
+            <option value="VIRTUAL">VIRTUAL</option>
+          </select>
+        </div>
 
         <h5 class="col-12">E' possibile richiedere solo un finanziamento alla volta presso la nostra banca, una volta sottoscritto il finanziamento 
           la pagina di richiesta sparira, e apparira la nuova pagina per la gestione del finanziamento!
@@ -158,7 +168,7 @@
         </h5>
       </div>
       <div class="modal-footer">
-        <button>Richiedi ora</button>
+        <button (click)="insertLoan()">Richiedi ora</button>
       </div>
     </div>
   </div>

@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { LoansService } from '../../services/loans.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-loans',
@@ -22,9 +24,18 @@ export class LoansComponent implements OnInit {
     { from: 0.095, to: 0.115 }
   ];
   risk: { from: number, to: number } = this.riskLevels[0];
+  @Input() cardType: string = 'Carta'; 
+
+  constructor(private loanService: LoansService, 
+              private userService: UserService) {}
 
   ngOnInit() {
     this.calculateLoan();
+  }
+
+  getSelectedCard() {
+    const selectedCardType = this.cardType;
+    return this.userService.getUser().cards.find((card: any) => card.type === selectedCardType);
   }
 
   formatter(num: number): string {
@@ -61,13 +72,45 @@ export class LoansComponent implements OnInit {
   calculateLoan() {
     const A1 = this.calculateMonthlyCost(this.risk.from);
     const A2 = this.calculateMonthlyCost(this.risk.to);
-    this.total = `${this.currency} ${this.formatter(A1)} - ${this.formatter(A2)}`;
+    this.total = `${this.currency} ${this.formatter(A1)}`;
   }
 
   updateStyle(element: HTMLInputElement) {
     const percentage = (100 * (parseInt(element.value) - parseInt(element.min))) / (parseInt(element.max) - parseInt(element.min));
     const bg = `linear-gradient(90deg, #3AABB9 ${percentage}%, #CBCBCB ${percentage + 0.1}%)`;
     element.style.background = bg;
+  }
+
+
+
+  insertLoan() {
+    const selectedCard = this.getSelectedCard();
+
+    if (!selectedCard) {
+      console.error('Carta non trovata!');
+      return;
+    }
+
+    const id = localStorage.getItem('user_id');
+    const loanData = {
+      capitale: this.amount,
+      totRate: this.period,
+      ratePagate: 0,
+      costoMensile: parseFloat(this.total.replace(/\D/g, '')),
+      userId: id,
+      cardId: selectedCard.id
+      
+    };
+
+    this.loanService.insertLoan(loanData).subscribe({
+      next: (response) => {
+        alert('Finanziamento richiesto con successo!');
+      },
+      error: (err) => {
+        alert('Errore durante l’inserimento del finanziamento.');
+        console.error(err);
+      }
+    });
   }
 
   total: string = '';

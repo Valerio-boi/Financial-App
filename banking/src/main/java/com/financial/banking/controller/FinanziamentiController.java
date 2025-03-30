@@ -5,9 +5,9 @@ import com.financial.banking.constants.Constants;
 import com.financial.banking.exception.DatabaseException;
 import com.financial.banking.model.Card;
 import com.financial.banking.model.Finanziamenti;
+import com.financial.banking.model.dto.FinaziamentoRequest;
 import com.financial.banking.service.FinanziamentiService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +27,8 @@ public class FinanziamentiController {
     }
 
 
-    @PostMapping(value = "/insert-balance", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Map<String, String>> insertFinanziamento(@RequestBody Finanziamenti finanziamenti) {
+    @PostMapping(value = "/insert-finanziamento")
+    public ResponseEntity<Map<String, String>> insertFinanziamento(@RequestBody FinaziamentoRequest finanziamenti) {
         log.info("---- Start insertFinanziamento ----");
         try {
             finanziamentiService.insertFinanziamento(finanziamenti);

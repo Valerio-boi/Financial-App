@@ -64,7 +64,12 @@ export class TransactionComponent {
 
   getSelectedCard() {
     const selectedCardType = this.transaction.cardType;
-    return this.userService.getUser().cards.find((card:any) => card.type === selectedCardType);
+    const card = this.userService.getUser().cards.find((card: any) => card.type === selectedCardType);
+  
+    if (card) {
+      return { id: card.id }; // Invia solo l'ID della carta
+    }
+    return null;
   }
 
   resetForm() {

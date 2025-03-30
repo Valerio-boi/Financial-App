@@ -1,15 +1,18 @@
 package com.financial.banking.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "transactions")
-@Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Transaction implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,6 @@ public class Transaction implements Serializable {
     private String categoria;
     private LocalDateTime timestamp;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "card_id")
     private Card card;
