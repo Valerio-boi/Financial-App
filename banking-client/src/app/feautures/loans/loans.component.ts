@@ -38,11 +38,13 @@ export class LoansComponent implements OnInit {
 
   setAmount(event: any) {
     this.amount = parseInt(event.target.value);
+    this.updateStyle(event.target);
     this.calculateLoan();
   }
 
   setPeriod(event: any) {
     this.period = parseInt(event.target.value);
+    this.updateStyle(event.target);
     this.calculateLoan();
   }
 
@@ -60,6 +62,12 @@ export class LoansComponent implements OnInit {
     const A1 = this.calculateMonthlyCost(this.risk.from);
     const A2 = this.calculateMonthlyCost(this.risk.to);
     this.total = `${this.currency} ${this.formatter(A1)} - ${this.formatter(A2)}`;
+  }
+
+  updateStyle(element: HTMLInputElement) {
+    const percentage = (100 * (parseInt(element.value) - parseInt(element.min))) / (parseInt(element.max) - parseInt(element.min));
+    const bg = `linear-gradient(90deg, #3AABB9 ${percentage}%, #CBCBCB ${percentage + 0.1}%)`;
+    element.style.background = bg;
   }
 
   total: string = '';

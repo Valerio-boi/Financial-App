@@ -1,14 +1,13 @@
-   <div class="container my-5">
+   <div id="loansDiv" class="container my-5">
     <div id="app">
       <div class="row mb-5">
-        <h5 class="col-12 mb-4">How much capital are you looking for?</h5>
+        <h5 class="col-12 mb-4 text-white">How much capital are you looking for?</h5>
         <div class="col-12">
           <div class="row align-items-center mb-4">
             <div class="col-12 col-sm-4">
               <div class="fg">
-                <select name="currency" id="currency" (change)="setCurrency($event)">
+                <select name="currency" id="currency" (change)="setCurrency($event)" class="text-white">
                   <option value="EUR" [selected]="currency === 'EUR'">EUR</option>
-                  <option value="CHF" [selected]="currency === 'CHF'">CHF</option>
                 </select>
                 <div id="amount">
                     {{ formatter(amount) }}
@@ -34,7 +33,7 @@
       </div>
       
       <div class="row">
-        <h5 class="col-12">Over what payback period?</h5>
+        <h5 class="col-12 text-white">Over what payback period?</h5>
       </div>
       
       <div class="row mb-5">
@@ -59,7 +58,7 @@
       </div>
       
       <div class="row mb-4">
-        <h5 class="col-12">
+        <h5 class="col-12 text-white">
           Assumed risk rating?
         </h5>
       </div>
@@ -76,13 +75,13 @@
         </div>
       
       <div class="row risk-info mb-5">
-        <div class="col-2 text-center">LOW</div>
+        <div class="col-2 text-center text-white">LOW</div>
         <div class="col-8">
           <div class="arrow-line mt-2">
             <div class="arrow-top"></div>
           </div>
         </div>
-        <div class="col-2 text-center">HIGH</div>
+        <div class="col-2 text-center text-white">HIGH</div>
       </div>
       
       <div class="row">
