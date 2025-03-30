@@ -1,0 +1,70 @@
+html {
+	background: beige ;
+}
+
+:host {
+    background: beige !important;
+    display: block;
+  }
+
+body {
+	padding: 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+h1 {
+	column-span: all;
+	font-size: 10vw;
+	margin: 0.5rem 0 2rem 0;
+	text-align: center;
+	text-transform: uppercase;
+	border-bottom: 1rem double black;
+	font-weight: 900;
+}
+
+@media screen and (min-width: 1200px) {
+	h1 {
+		font-size: 130px;
+	}
+}
+
+h2 {
+	color: red;
+	font-size: 2rem;
+	line-height: 100%;
+}
+
+p {
+	margin: 0 0 1.5rem 0;
+}
+
+h1 + p::first-letter,
+h2 + p::first-letter {
+	color: beige !important;
+	background-color: black !important;
+	border-radius: 4px;
+	box-shadow: 3px 3px 0 red;
+	font-size: 250%;
+	padding: 0 0.5rem;
+	margin-right: 0.75rem;
+	float: left;
+	transition: 1s;
+}
+
+h2 + p {
+	margin-top: 1rem;
+}
+
+article {
+	columns: 25ch auto;
+	gap: 1rem;
+	border-bottom: 1rem solid black;
+	padding-bottom: 2rem;
+}
+
+aside {
+	font-size: 0.8rem;
+	font-style: italic;
+	margin-left: 1rem;
+}
