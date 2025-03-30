@@ -5,7 +5,6 @@ import com.financial.banking.exception.DatabaseException;
 import com.financial.banking.model.News;
 import com.financial.banking.model.dto.NewsResponse;
 import com.financial.banking.repository.NewsRepository;
-import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,7 +19,7 @@ public class NewsService {
     private final String API_URL = "https://api.marketaux.com/v1/news/all";
     private final String  API_TOKEN = "uOolCbU4AangzAY8lciDekXkpsVSlNzrN7oufb3K";
 
-    private NewsRepository newsRepository;
+    private final NewsRepository newsRepository;
     private final RestTemplate restTemplate;
 
 

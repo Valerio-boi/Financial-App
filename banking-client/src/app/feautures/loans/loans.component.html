@@ -100,7 +100,7 @@
           </div>
         </div>
         <div class="col-12 col-md-5 mt-3 mt-md-0">
-          <a href="#" class="apply">
+          <a class="apply" data-bs-toggle="modal"  data-bs-target="#loanInsert">
               <div class="info">
                 Richiedi ora il tuo prestito personale presso la nostra banca, vi saranno commissioni.
               </div>
@@ -111,6 +111,55 @@
           </a>
         </div>
       </div>
-      
     </div>
   </div>
+
+
+
+  <!-- Modal inserimento finanziamento-->
+<div class="modal fade" id="loanInsert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Destinazione finanziamento</h1>
+      </div>
+      <div class="modal-body">
+        <h5 class="col-12">Il finanziamento verrá errogato instantaneamente. <br>
+          di seguito il riepilogo delle tue scelte:</h5>
+
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Importo</th>
+              <th scope="col">Tot mesi</th>
+              <th scope="col">Costo mensile</th>
+              <th scope="col">Tasso interesse</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-light">
+              <th scope="row">{{amount}}</th>
+              <td>{{period}}</td>
+              <td>Otto</td>
+              <td>{{ (risk.from * 100).toFixed(1) }}%</td>
+
+            </tr>
+
+          </tbody>
+        </table>
+
+
+        <h5 class="col-12">E' possibile richiedere solo un finanziamento alla volta presso la nostra banca, una volta sottoscritto il finanziamento 
+          la pagina di richiesta sparira, e apparira la nuova pagina per la gestione del finanziamento!
+        </h5>
+
+        <h5 class="col-12">Grazie per averci scelto! la banca che aiuta sempre
+        </h5>
+      </div>
+      <div class="modal-footer">
+        <button>Richiedi ora</button>
+      </div>
+    </div>
+  </div>
+</div>
