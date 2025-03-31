@@ -77,7 +77,7 @@ public class FinanziamentiService {
         }
     }
 
-    public Optional<Finanziamenti> getFinanziamentiById(Long id) {
+    public Optional<Finanziamenti> getFinanziamentiById(Long id)  throws DatabaseException{
         return finanziamentiRepository.findById(id);
     }
 

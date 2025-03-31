@@ -23,7 +23,19 @@ public class TransactionService {
         this.cardRepository = cardRepository;
     }
 
-    public Transaction insertTransaction(Transaction transaction) throws DataAccessException {
+    public Transaction insertTransactionNegative(Transaction transaction) throws DataAccessException {
+        Card carta = cardRepository.getCardsById(transaction.getCard().getId()).orElse(null);
+
+        double balance = carta.getBalance();
+        balance -= transaction.getAmount();
+        cardRepository.updateBalanceById(carta.getId(),balance);
+
+        return transactionRepository.saveAndFlush(transaction);
+
+    }
+
+
+    public Transaction insertTransactionPositive(Transaction transaction) throws DataAccessException {
         Card carta = cardRepository.getCardsById(transaction.getCard().getId()).orElse(null);
 
         double balance = carta.getBalance();
@@ -39,7 +51,7 @@ public class TransactionService {
         Card carta = cardRepository.getCardsById(transaction.getCard().getId()).orElse(null);
 
         double balance = carta.getBalance();
-        balance -= transaction.getAmount();
+        balance += transaction.getAmount();
         cardRepository.updateBalanceById(carta.getId(),balance);
 
         transactionRepository.deleteById(id);

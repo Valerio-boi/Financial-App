@@ -33,6 +33,10 @@
   <div class="row d-flex justify-content-end w-100">
 
       <button id="buttonMio"  data-bs-toggle="modal"  data-bs-target="#transactionInsert" class="mx-2">
+        - Transazione
+      </button>
+
+      <button id="buttonMio"  data-bs-toggle="modal"  data-bs-target="#transactionInsertPositive" class="mx-2">
         + Transazione
       </button>
   </div>
@@ -46,7 +50,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content p-3">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Form registrazione</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci transazione negativa</h1>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -103,7 +107,76 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button (click)="submitTransaction()">Inserisci</button>
+        <button (click)="submitTransaction(0)" class="btn btn-danger">Inserisci</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal inserimento transizione-->
+<div class="modal fade" id="transactionInsertPositive" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci transazione positiva</h1>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <div class="inputGroup">
+              <input
+                type="text"
+                [(ngModel)]="transaction.amount"
+                name="amount"
+                required
+                autocomplete="off"
+              />
+              <label for="amount">Importo</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="inputGroup">
+              <input
+                type="text"
+                [(ngModel)]="transaction.description"
+                name="description"
+                required
+                autocomplete="off"
+              />
+              <label for="description">Descrizione</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="inputGroup">
+              <select class="form-select" aria-label="Default select example" [(ngModel)]="transaction.categoria" name="categoria">
+                <option selected>Categoria</option>
+                <option value="Casa">Casa</option>
+                <option value="Vestiti">Vestiti</option>
+                <option value="Sport">Sport</option>
+                <option value="Alimenti">Alimenti</option>
+                <option value="Finanziamenti">Finanziamenti</option>
+                <option value="Bollette">Bollette</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="inputGroup">
+              <select class="form-select" aria-label="Default select example" [(ngModel)]="transaction.cardType" name="cardType">
+                <option selected>Carta</option>
+                <option value="DEBIT">DEBIT</option>
+                <option value="PREPAID">PREPAID</option>
+                <option value="VIRTUAL">VIRTUAL</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="submitTransaction(1)" class="btn btn-success">Inserisci</button>
       </div>
     </div>
   </div>

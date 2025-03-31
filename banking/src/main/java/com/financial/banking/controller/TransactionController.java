@@ -30,7 +30,22 @@ public class TransactionController {
         log.info("---- Start insertTransaction ----");
         Transaction tra = null;
         try {
-            tra = transactionService.insertTransaction(transaction);
+            tra = transactionService.insertTransactionNegative(transaction);
+        } catch (DatabaseException e) {
+            log.error(e.getMessage());
+            throw new DatabaseException(Constants.ERRORE_DATA_BASE, e);
+        }
+        log.info("---- End insertTransaction ----");
+        return ResponseEntity.ok(tra);
+    }
+
+
+    @PostMapping("/insert-transaction-positive")
+    public ResponseEntity<Transaction> insertTransactionPositive(@RequestBody Transaction transaction) {
+        log.info("---- Start insertTransaction ----");
+        Transaction tra = null;
+        try {
+            tra = transactionService.insertTransactionPositive(transaction);
         } catch (DatabaseException e) {
             log.error(e.getMessage());
             throw new DatabaseException(Constants.ERRORE_DATA_BASE, e);

@@ -32,7 +32,7 @@ export class TransactionComponent {
   itemsPerPage: number = 6;
 
 
-  submitTransaction() {
+  submitTransaction(posNeg: number) {
     const selectedCard = this.getSelectedCard();
 
     const transactionData = {
@@ -49,7 +49,8 @@ export class TransactionComponent {
       Authorization: `Basic ${credentials}`,
     });
  
-    this.http.post('http://localhost:8080/api/private/insert-transaction', transactionData, {headers})
+    if(posNeg){
+      this.http.post('http://localhost:8080/api/private/insert-transaction-positive', transactionData, {headers})
       .subscribe({
         next: (response) => {
           console.log('Transazione inserita con successo', response);
@@ -60,7 +61,22 @@ export class TransactionComponent {
           console.error('Errore durante l\'inserimento della transazione', error);
         }
       });
+    }else{
+      this.http.post('http://localhost:8080/api/private/insert-transaction', transactionData, {headers})
+      .subscribe({
+        next: (response) => {
+          console.log('Transazione inserita con successo', response);
+          this.userService.notifyUserUpdate(); 
+          this.resetForm();
+        },
+        error: (error) => {
+          console.error('Errore durante l\'inserimento della transazione', error);
+        }
+      });
+    }
+
   }
+
 
   getSelectedCard() {
     const selectedCardType = this.transaction.cardType;

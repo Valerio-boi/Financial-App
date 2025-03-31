@@ -127,6 +127,12 @@ export class LoansComponent implements OnInit {
   
 
   generateTableData() {
+
+    if (!this.activeLoan) {
+      console.error('Finanziamento non trovato');
+      return;
+    }
+  
     const totRate = this.activeLoan.totRate; // Numero totale di rate
     const ratePagate = this.activeLoan.ratePagate; // Rate già pagate
     const capitale = this.activeLoan.capitale; 
@@ -168,6 +174,10 @@ export class LoansComponent implements OnInit {
     this.loanService.insertLoan(loanData).subscribe({
       next: (response) => {
         alert('Finanziamento richiesto con successo!');
+        this.hasActiveLoan = true;  
+        this.checkUserLoan();
+        this.calculateLoan();
+        this.cdRef.detectChanges();
       },
       error: (err) => {
         alert('Errore durante l’inserimento del finanziamento.');
@@ -198,12 +208,17 @@ export class LoansComponent implements OnInit {
                 // Recupera il finanziamento aggiornato
                 this.loanService.getLoansById(user.finanziamenti).subscribe({
                   next: (updatedLoan) => {
+                    if (this.activeLoan.ratePagate >= this.activeLoan.totRate) {
+                      this.hasActiveLoan = false;  
+                      alert('Il prestito è stato completato!');
+                    }
                     this.activeLoan = updatedLoan;
                     
-                    this.generateTableData();  // Rigenera i dati della tabella
-                    this.chartComponent.updateChart();  // Aggiorna il grafico
+                    this.generateTableData();  
+                    this.chartComponent.updateChart();  
+
                     this.checkUserLoan();
-                    this.cdRef.detectChanges();  // Forza l'aggiornamento della UI
+                    this.cdRef.detectChanges();
                   },
                   error: (err) => console.error('Errore aggiornamento finanziamento', err)
                 });
