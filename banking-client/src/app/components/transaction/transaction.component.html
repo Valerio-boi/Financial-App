@@ -9,48 +9,78 @@
       <th scope="col">Elimina</th>
     </tr>
   </thead>
-    <tbody id="bodyTable" *ngIf="transactions.length > 0; else noData">
-      <tr *ngFor="let transaction of transactions | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
-        <th scope="row">{{ transaction.formattedDate }}</th>
-        <td>{{ transaction.cardType }}</td>
-        <td>{{ transaction.description }}</td>
-        <td>{{ transaction.categoria }}</td>
-        <td>{{ transaction.amount }}€</td>
-        <td><button class="btn btn-danger" (click)="deleteTransaction(transaction.id)"><i class="bi bi-trash"></i></button></td>
-      </tr>
-    </tbody>
+  <tbody id="bodyTable" *ngIf="transactions.length > 0; else noData">
+    <tr
+      *ngFor="
+        let transaction of transactions
+          | paginate: { itemsPerPage: itemsPerPage, currentPage: page }
+      "
+    >
+      <th scope="row">{{ transaction.formattedDate }}</th>
+      <td>{{ transaction.cardType }}</td>
+      <td>{{ transaction.description }}</td>
+      <td>{{ transaction.categoria }}</td>
+      <td>{{ transaction.amount }}€</td>
+      <td>
+        <button
+          class="btn btn-danger"
+          (click)="deleteTransaction(transaction.id)"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
 
-    <ng-template #noData>
-      <tr>
-        <td colspan="4" class="text-center">No data found</td>
-      </tr>
-    </ng-template>
+  <ng-template #noData>
+    <tr>
+      <td colspan="4" class="text-center">No data found</td>
+    </tr>
+  </ng-template>
 </table>
-<div class="d-flex justify-content-between align-items-center"> 
-<pagination-controls (pageChange)="page = $event" [ngClass]="'text-white'"></pagination-controls>
+<div class="d-flex justify-content-between align-items-center">
+  <pagination-controls
+    (pageChange)="page = $event"
+    [ngClass]="'text-white'"
+  ></pagination-controls>
 
-<div class="container">
-  <div class="row d-flex justify-content-end w-100">
-
-      <button id="buttonMio"  data-bs-toggle="modal"  data-bs-target="#transactionInsert" class="mx-2">
+  <div class="container">
+    <div class="row d-flex justify-content-end w-100">
+      <button
+        id="buttonMio"
+        data-bs-toggle="modal"
+        data-bs-target="#transactionInsert"
+        class="mx-2"
+      >
         - Transazione
       </button>
 
-      <button id="buttonMio"  data-bs-toggle="modal"  data-bs-target="#transactionInsertPositive" class="mx-2">
+      <button
+        id="buttonMio"
+        data-bs-toggle="modal"
+        data-bs-target="#transactionInsertPositive"
+        class="mx-2"
+      >
         + Transazione
       </button>
+    </div>
   </div>
 </div>
 
-</div>
-
-
 <!-- Modal inserimento transizione-->
-<div class="modal fade" id="transactionInsert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="transactionInsert"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content p-3">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci transazione negativa</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Inserisci transazione negativa
+        </h1>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -83,7 +113,12 @@
         <div class="row">
           <div class="col">
             <div class="inputGroup">
-              <select class="form-select" aria-label="Default select example" [(ngModel)]="transaction.categoria" name="categoria">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                [(ngModel)]="transaction.categoria"
+                name="categoria"
+              >
                 <option selected>Categoria</option>
                 <option value="Casa">Casa</option>
                 <option value="Vestiti">Vestiti</option>
@@ -96,7 +131,12 @@
           </div>
           <div class="col">
             <div class="inputGroup">
-              <select class="form-select" aria-label="Default select example" [(ngModel)]="transaction.cardType" name="cardType">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                [(ngModel)]="transaction.cardType"
+                name="cardType"
+              >
                 <option selected>Carta</option>
                 <option value="DEBIT">DEBIT</option>
                 <option value="PREPAID">PREPAID</option>
@@ -107,19 +147,28 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button (click)="submitTransaction(0)" class="btn btn-danger">Inserisci</button>
+        <button (click)="submitTransaction(0)" class="btn btn-danger">
+          Inserisci
+        </button>
       </div>
     </div>
   </div>
 </div>
 
-
 <!-- Modal inserimento transizione-->
-<div class="modal fade" id="transactionInsertPositive" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="transactionInsertPositive"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content p-3">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Inserisci transazione positiva</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          Inserisci transazione positiva
+        </h1>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -152,7 +201,12 @@
         <div class="row">
           <div class="col">
             <div class="inputGroup">
-              <select class="form-select" aria-label="Default select example" [(ngModel)]="transaction.categoria" name="categoria">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                [(ngModel)]="transaction.categoria"
+                name="categoria"
+              >
                 <option selected>Categoria</option>
                 <option value="Casa">Casa</option>
                 <option value="Vestiti">Vestiti</option>
@@ -165,7 +219,12 @@
           </div>
           <div class="col">
             <div class="inputGroup">
-              <select class="form-select" aria-label="Default select example" [(ngModel)]="transaction.cardType" name="cardType">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                [(ngModel)]="transaction.cardType"
+                name="cardType"
+              >
                 <option selected>Carta</option>
                 <option value="DEBIT">DEBIT</option>
                 <option value="PREPAID">PREPAID</option>
@@ -176,7 +235,9 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button (click)="submitTransaction(1)" class="btn btn-success">Inserisci</button>
+        <button (click)="submitTransaction(1)" class="btn btn-success">
+          Inserisci
+        </button>
       </div>
     </div>
   </div>

@@ -1,14 +1,14 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
-Chart.register(...registerables)
+Chart.register(...registerables);
 @Component({
   standalone: true,
   selector: 'app-chart-expenses',
   templateUrl: './chart-expenses.component.html',
   styleUrl: './chart-expenses.component.css',
 })
-export class ChartExpensesComponent  implements OnInit{
+export class ChartExpensesComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
@@ -25,9 +25,8 @@ export class ChartExpensesComponent  implements OnInit{
 
   @Input() transactions: any[] = [];
 
-
   aggregateData() {
-    const categorySums: Record<string, number> = {}; 
+    const categorySums: Record<string, number> = {};
 
     this.transactions.forEach((transaction) => {
       const categoria = transaction.categoria;
@@ -50,11 +49,11 @@ export class ChartExpensesComponent  implements OnInit{
     this.barChart = new Chart('barChart', {
       type: 'bar',
       data: {
-        labels: aggregatedData.map((data) => data.category), 
+        labels: aggregatedData.map((data) => data.category),
         datasets: [
           {
             label: 'Spese per Categoria',
-            data: aggregatedData.map((data) => data.sum), 
+            data: aggregatedData.map((data) => data.sum),
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(255, 159, 64, 0.2)',
@@ -92,12 +91,12 @@ export class ChartExpensesComponent  implements OnInit{
     if (this.barChart) {
       const aggregatedData = this.aggregateData();
       this.barChart.data.labels = aggregatedData.map((data) => data.category);
-      this.barChart.data.datasets[0].data = aggregatedData.map((data) => data.sum);
+      this.barChart.data.datasets[0].data = aggregatedData.map(
+        (data) => data.sum,
+      );
       this.barChart.update();
     } else {
       this.createChart();
     }
   }
-
-
 }

@@ -1,13 +1,13 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
-Chart.register(...registerables)
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-chart-loans',
   imports: [],
   templateUrl: './chart-loans.component.html',
-  styleUrl: './chart-loans.component.css'
+  styleUrl: './chart-loans.component.css',
 })
 export class ChartLoansComponent {
   @Input() activeLoan: any = {}; // Riceve l'oggetto del finanziamento
@@ -27,12 +27,29 @@ export class ChartLoansComponent {
   }
 
   createChart() {
-    const months = Array.from({ length: this.activeLoan.totRate }, (_, i) => `Mese ${i + 1}`);
-    const ratePagate = Array.from({ length: this.activeLoan.totRate }, (_, i) => i < this.activeLoan.ratePagate ? this.activeLoan.costoMensile : 0);
-    const rateRimanenti = Array.from({ length: this.activeLoan.totRate }, (_, i) => i >= this.activeLoan.ratePagate ? this.activeLoan.costoMensile : 0);
-    const capitaleResiduo = Array.from({ length: this.activeLoan.totRate }, (_, i) => {
-      return Math.max(0, this.activeLoan.capitale - (this.activeLoan.costoMensile * (i + 1)));
-    });
+    const months = Array.from(
+      { length: this.activeLoan.totRate },
+      (_, i) => `Mese ${i + 1}`,
+    );
+    const ratePagate = Array.from(
+      { length: this.activeLoan.totRate },
+      (_, i) =>
+        i < this.activeLoan.ratePagate ? this.activeLoan.costoMensile : 0,
+    );
+    const rateRimanenti = Array.from(
+      { length: this.activeLoan.totRate },
+      (_, i) =>
+        i >= this.activeLoan.ratePagate ? this.activeLoan.costoMensile : 0,
+    );
+    const capitaleResiduo = Array.from(
+      { length: this.activeLoan.totRate },
+      (_, i) => {
+        return Math.max(
+          0,
+          this.activeLoan.capitale - this.activeLoan.costoMensile * (i + 1),
+        );
+      },
+    );
 
     this.barChart = new Chart('barChart', {
       type: 'bar',
@@ -75,12 +92,29 @@ export class ChartLoansComponent {
 
   updateChart() {
     if (this.barChart) {
-      const months = Array.from({ length: this.activeLoan.totRate }, (_, i) => `Mese ${i + 1}`);
-      const ratePagate = Array.from({ length: this.activeLoan.totRate }, (_, i) => i < this.activeLoan.ratePagate ? this.activeLoan.costoMensile : 0);
-      const rateRimanenti = Array.from({ length: this.activeLoan.totRate }, (_, i) => i >= this.activeLoan.ratePagate ? this.activeLoan.costoMensile : 0);
-      const capitaleResiduo = Array.from({ length: this.activeLoan.totRate }, (_, i) => {
-        return Math.max(0, this.activeLoan.capitale - (this.activeLoan.costoMensile * (i + 1)));
-      });
+      const months = Array.from(
+        { length: this.activeLoan.totRate },
+        (_, i) => `Mese ${i + 1}`,
+      );
+      const ratePagate = Array.from(
+        { length: this.activeLoan.totRate },
+        (_, i) =>
+          i < this.activeLoan.ratePagate ? this.activeLoan.costoMensile : 0,
+      );
+      const rateRimanenti = Array.from(
+        { length: this.activeLoan.totRate },
+        (_, i) =>
+          i >= this.activeLoan.ratePagate ? this.activeLoan.costoMensile : 0,
+      );
+      const capitaleResiduo = Array.from(
+        { length: this.activeLoan.totRate },
+        (_, i) => {
+          return Math.max(
+            0,
+            this.activeLoan.capitale - this.activeLoan.costoMensile * (i + 1),
+          );
+        },
+      );
 
       // Aggiorna i dati nel grafico
       this.barChart.data.labels = months;

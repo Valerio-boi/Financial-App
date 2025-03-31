@@ -12,10 +12,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrl: './transaction.component.css',
 })
 export class TransactionComponent {
-
   constructor(
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   @Input() transactions: any[] = [];
@@ -25,12 +24,11 @@ export class TransactionComponent {
     description: '',
     timestamp: new Date().toISOString(),
     categoria: 'Categoria',
-    cardType: 'Carta'
+    cardType: 'Carta',
   };
 
   page: number = 1;
   itemsPerPage: number = 6;
-
 
   submitTransaction(posNeg: number) {
     const selectedCard = this.getSelectedCard();
@@ -40,7 +38,7 @@ export class TransactionComponent {
       description: this.transaction.description,
       timestamp: this.transaction.timestamp,
       categoria: this.transaction.categoria,
-      card: selectedCard
+      card: selectedCard,
     };
 
     const credentials = localStorage.getItem('token');
@@ -48,40 +46,56 @@ export class TransactionComponent {
     const headers = new HttpHeaders({
       Authorization: `Basic ${credentials}`,
     });
- 
-    if(posNeg){
-      this.http.post('http://localhost:8080/api/private/insert-transaction-positive', transactionData, {headers})
-      .subscribe({
-        next: (response) => {
-          console.log('Transazione inserita con successo', response);
-          this.userService.notifyUserUpdate(); 
-          this.resetForm();
-        },
-        error: (error) => {
-          console.error('Errore durante l\'inserimento della transazione', error);
-        }
-      });
-    }else{
-      this.http.post('http://localhost:8080/api/private/insert-transaction', transactionData, {headers})
-      .subscribe({
-        next: (response) => {
-          console.log('Transazione inserita con successo', response);
-          this.userService.notifyUserUpdate(); 
-          this.resetForm();
-        },
-        error: (error) => {
-          console.error('Errore durante l\'inserimento della transazione', error);
-        }
-      });
+
+    if (posNeg) {
+      this.http
+        .post(
+          'http://localhost:8080/api/private/insert-transaction-positive',
+          transactionData,
+          { headers },
+        )
+        .subscribe({
+          next: (response) => {
+            console.log('Transazione inserita con successo', response);
+            this.userService.notifyUserUpdate();
+            this.resetForm();
+          },
+          error: (error) => {
+            console.error(
+              "Errore durante l'inserimento della transazione",
+              error,
+            );
+          },
+        });
+    } else {
+      this.http
+        .post(
+          'http://localhost:8080/api/private/insert-transaction',
+          transactionData,
+          { headers },
+        )
+        .subscribe({
+          next: (response) => {
+            console.log('Transazione inserita con successo', response);
+            this.userService.notifyUserUpdate();
+            this.resetForm();
+          },
+          error: (error) => {
+            console.error(
+              "Errore durante l'inserimento della transazione",
+              error,
+            );
+          },
+        });
     }
-
   }
-
 
   getSelectedCard() {
     const selectedCardType = this.transaction.cardType;
-    const card = this.userService.getUser().cards.find((card: any) => card.type === selectedCardType);
-  
+    const card = this.userService
+      .getUser()
+      .cards.find((card: any) => card.type === selectedCardType);
+
     if (card) {
       return { id: card.id }; // Invia solo l'ID della carta
     }
@@ -95,30 +109,33 @@ export class TransactionComponent {
       description: '',
       timestamp: new Date().toISOString(),
       categoria: '',
-      cardType: ''
+      cardType: '',
     };
   }
-
 
   deleteTransaction(transactionId: number) {
     if (confirm('Sei sicuro di voler eliminare questa transazione?')) {
       const credentials = localStorage.getItem('token');
       const headers = new HttpHeaders({
         Authorization: `Basic ${credentials}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       });
 
       this.http
-        .delete(`http://localhost:8080/api/private/delete-transaction?id=${transactionId}`, { headers })
+        .delete(
+          `http://localhost:8080/api/private/delete-transaction?id=${transactionId}`,
+          { headers },
+        )
         .subscribe({
           next: () => {
-            this.transactions = this.transactions.filter(t => t.id !== transactionId);
+            this.transactions = this.transactions.filter(
+              (t) => t.id !== transactionId,
+            );
             console.log(`Transazione con ID ${transactionId} eliminata`);
-            this.userService.notifyUserUpdate(); 
+            this.userService.notifyUserUpdate();
           },
           error: (err) => console.error('Errore eliminazione transazione', err),
         });
     }
   }
-
 }

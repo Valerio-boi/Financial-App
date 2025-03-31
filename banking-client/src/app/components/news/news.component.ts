@@ -22,7 +22,8 @@ export class NewsComponent {
   fetchNewsFromDB() {
     this.newsService.getNews().subscribe({
       next: (news) => (this.newsList = news),
-      error: (err) => console.error('Errore nel recupero delle news dal DB:', err),
+      error: (err) =>
+        console.error('Errore nel recupero delle news dal DB:', err),
     });
   }
 }

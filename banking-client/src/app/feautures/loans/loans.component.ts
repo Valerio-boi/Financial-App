@@ -1,9 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { LoansService } from '../../services/loans.service';
 import { UserService } from '../../services/user.service';
-import { ChartLoansComponent } from "../../components/chart-loans/chart-loans.component";
+import { ChartLoansComponent } from '../../components/chart-loans/chart-loans.component';
 import { TransactionService } from '../../services/transaction.service';
 
 @Component({
@@ -11,10 +17,9 @@ import { TransactionService } from '../../services/transaction.service';
   imports: [CommonModule, FormsModule, ChartLoansComponent],
   standalone: true,
   templateUrl: './loans.component.html',
-  styleUrl: './loans.component.scss'
+  styleUrl: './loans.component.scss',
 })
 export class LoansComponent implements OnInit {
-
   @ViewChild(ChartLoansComponent) chartComponent!: ChartLoansComponent;
 
   currency: string = 'EUR';
@@ -30,15 +35,17 @@ export class LoansComponent implements OnInit {
     { from: 0.06, to: 0.07 },
     { from: 0.07, to: 0.085 },
     { from: 0.085, to: 0.095 },
-    { from: 0.095, to: 0.115 }
+    { from: 0.095, to: 0.115 },
   ];
-  risk: { from: number, to: number } = this.riskLevels[0];
-  @Input() cardType: string = 'Carta'; 
+  risk: { from: number; to: number } = this.riskLevels[0];
+  @Input() cardType: string = 'Carta';
 
-  constructor(private loanService: LoansService, 
-              private userService: UserService,
-              private cdRef: ChangeDetectorRef,
-              private transactionService: TransactionService) {}
+  constructor(
+    private loanService: LoansService,
+    private userService: UserService,
+    private cdRef: ChangeDetectorRef,
+    private transactionService: TransactionService,
+  ) {}
 
   ngOnInit() {
     this.checkUserLoan();
@@ -47,11 +54,16 @@ export class LoansComponent implements OnInit {
 
   getSelectedCard() {
     const selectedCardType = this.cardType;
-    return this.userService.getUser().cards.find((card: any) => card.type === selectedCardType);
+    return this.userService
+      .getUser()
+      .cards.find((card: any) => card.type === selectedCardType);
   }
 
   formatter(num: number): string {
-    return num.toFixed(0).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+    return num
+      .toFixed(0)
+      .replace('.', ',')
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
   }
 
   setCurrency(event: any) {
@@ -78,7 +90,7 @@ export class LoansComponent implements OnInit {
 
   calculateMonthlyCost(risk: number): number {
     const i = risk / 12;
-    return this.amount * (i + (i / (Math.pow((1 + i), this.period) - 1)));
+    return this.amount * (i + i / (Math.pow(1 + i, this.period) - 1));
   }
 
   calculateLoan() {
@@ -88,7 +100,9 @@ export class LoansComponent implements OnInit {
   }
 
   updateStyle(element: HTMLInputElement) {
-    const percentage = (100 * (parseInt(element.value) - parseInt(element.min))) / (parseInt(element.max) - parseInt(element.min));
+    const percentage =
+      (100 * (parseInt(element.value) - parseInt(element.min))) /
+      (parseInt(element.max) - parseInt(element.min));
     const bg = `linear-gradient(90deg, #3AABB9 ${percentage}%, #CBCBCB ${percentage + 0.1}%)`;
     element.style.background = bg;
   }
@@ -107,7 +121,8 @@ export class LoansComponent implements OnInit {
                   this.generateTableData();
                   this.cdRef.detectChanges();
                 },
-                error: (error) => console.error('Errore nel recupero finanziamento', error)
+                error: (error) =>
+                  console.error('Errore nel recupero finanziamento', error),
               });
             } else {
               this.hasActiveLoan = false;
@@ -120,28 +135,26 @@ export class LoansComponent implements OnInit {
         error: (err) => {
           console.error('Errore nel recupero del finanziamento', err);
           this.hasActiveLoan = false;
-        }
+        },
       });
     }
   }
-  
 
   generateTableData() {
-
     if (!this.activeLoan) {
       console.error('Finanziamento non trovato');
       return;
     }
-  
+
     const totRate = this.activeLoan.totRate; // Numero totale di rate
     const ratePagate = this.activeLoan.ratePagate; // Rate già pagate
-    const capitale = this.activeLoan.capitale; 
-    const costoMensile = this.activeLoan.costoMensile; 
-  
+    const capitale = this.activeLoan.capitale;
+    const costoMensile = this.activeLoan.costoMensile;
+
     this.tableData = Array.from({ length: totRate - ratePagate }, (_, i) => {
       const mese = ratePagate + i + 1; // Parto dalla prima rata non pagata
       const residuo = Math.max(0, capitale - costoMensile * mese);
-  
+
       return {
         mese: `Mese ${mese}`,
         importo: costoMensile,
@@ -149,8 +162,6 @@ export class LoansComponent implements OnInit {
       };
     });
   }
-  
-
 
   insertLoan() {
     const selectedCard = this.getSelectedCard();
@@ -167,14 +178,13 @@ export class LoansComponent implements OnInit {
       ratePagate: 0,
       costoMensile: parseFloat(this.total.replace(/\D/g, '')),
       userId: id,
-      cardId: selectedCard.id
-      
+      cardId: selectedCard.id,
     };
 
     this.loanService.insertLoan(loanData).subscribe({
       next: (response) => {
         alert('Finanziamento richiesto con successo!');
-        this.hasActiveLoan = true;  
+        this.hasActiveLoan = true;
         this.checkUserLoan();
         this.calculateLoan();
         this.cdRef.detectChanges();
@@ -182,77 +192,89 @@ export class LoansComponent implements OnInit {
       error: (err) => {
         alert('Errore durante l’inserimento del finanziamento.');
         console.error(err);
-      }
+      },
     });
   }
 
-
   pagaRata() {
     const userId = localStorage.getItem('user_id');
-  
+
     if (userId) {
       this.userService.getUserById(Number(userId)).subscribe({
         next: (user) => {
           if (user && user.finanziamenti) {
-            const selectedCard = user.cards.find((card: { finanziamenti: { id: any; }; }) => card.finanziamenti && card.finanziamenti.id === user.finanziamenti);
-            
+            const selectedCard = user.cards.find(
+              (card: { finanziamenti: { id: any } }) =>
+                card.finanziamenti &&
+                card.finanziamenti.id === user.finanziamenti,
+            );
+
             if (!selectedCard) {
-              console.error('Nessuna carta associata al finanziamento trovata.');
+              console.error(
+                'Nessuna carta associata al finanziamento trovata.',
+              );
               return;
             }
-  
+
             this.loanService.payRataById(user.finanziamenti).subscribe({
               next: (data) => {
                 console.log('Rata pagata con successo', data);
-  
+
                 // Recupera il finanziamento aggiornato
                 this.loanService.getLoansById(user.finanziamenti).subscribe({
                   next: (updatedLoan) => {
                     if (this.activeLoan.ratePagate >= this.activeLoan.totRate) {
-                      this.hasActiveLoan = false;  
+                      this.hasActiveLoan = false;
                       alert('Il prestito è stato completato!');
                     }
                     this.activeLoan = updatedLoan;
-                    
-                    this.generateTableData();  
-                    this.chartComponent.updateChart();  
+
+                    this.generateTableData();
+                    this.chartComponent.updateChart();
 
                     this.checkUserLoan();
                     this.cdRef.detectChanges();
                   },
-                  error: (err) => console.error('Errore aggiornamento finanziamento', err)
+                  error: (err) =>
+                    console.error('Errore aggiornamento finanziamento', err),
                 });
-  
+
                 // Inserisce la transazione
                 const transactionData = {
                   amount: this.activeLoan.costoMensile,
                   description: 'Rata finanziamento',
                   timestamp: new Date().toISOString(),
                   categoria: 'Finanziamenti',
-                  card: { id: selectedCard.id }
+                  card: { id: selectedCard.id },
                 };
-  
-                this.transactionService.insertTransaction(transactionData).subscribe({
-                  next: (response) => {
-                    console.log('Transazione inserita con successo', response);
-                  },
-                  error: (error) => {
-                    console.error('Errore durante l\'inserimento della transazione', error);
-                  }
-                });
+
+                this.transactionService
+                  .insertTransaction(transactionData)
+                  .subscribe({
+                    next: (response) => {
+                      console.log(
+                        'Transazione inserita con successo',
+                        response,
+                      );
+                    },
+                    error: (error) => {
+                      console.error(
+                        "Errore durante l'inserimento della transazione",
+                        error,
+                      );
+                    },
+                  });
               },
-              error: (error) => console.error('Errore nel pagamento della rata', error)
+              error: (error) =>
+                console.error('Errore nel pagamento della rata', error),
             });
           }
         },
-        error: (err) => console.error('Errore nel recupero del finanziamento', err)
+        error: (err) =>
+          console.error('Errore nel recupero del finanziamento', err),
       });
     }
   }
-  
-  
-  
 
   total: string = '';
-
 }

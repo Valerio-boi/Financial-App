@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoansService {
-  private apiUrl = 'http://localhost:8080/api/private/insert-finanziamento'; 
-  private apiUrlGet = 'http://localhost:8080/api/private/finanziamento'; 
-  private apiUrlPay = 'http://localhost:8080/api/private/pay-finanziamento'; 
+  private apiUrl = 'http://localhost:8080/api/private/insert-finanziamento';
+  private apiUrlGet = 'http://localhost:8080/api/private/finanziamento';
+  private apiUrlPay = 'http://localhost:8080/api/private/pay-finanziamento';
 
   constructor(private http: HttpClient) {}
 
@@ -23,8 +23,6 @@ export class LoansService {
     return this.http.post<any>(this.apiUrl, loanData, { headers });
   }
 
-
-
   getLoansById(id: number): Observable<any> {
     const credentials = localStorage.getItem('token');
 
@@ -32,9 +30,8 @@ export class LoansService {
       Authorization: `Basic ${credentials}`,
     });
 
-    return this.http.get<any>(`${this.apiUrlGet}?id=${id}`, {headers});
+    return this.http.get<any>(`${this.apiUrlGet}?id=${id}`, { headers });
   }
-
 
   payRataById(id: number): Observable<any> {
     const credentials = localStorage.getItem('token');
@@ -44,7 +41,6 @@ export class LoansService {
       Authorization: `Basic ${credentials}`,
     });
 
-    return this.http.post<any>(this.apiUrlPay, id, { headers });;
+    return this.http.post<any>(this.apiUrlPay, id, { headers });
   }
-
 }
