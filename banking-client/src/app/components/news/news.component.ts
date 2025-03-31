@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NewsService } from '../../services/news.service';
 import { CommonModule } from '@angular/common';
-import { CardBankComponent } from '../bankCard/card-bank.component';
 import { News } from '../../models/news.model';
 
 @Component({

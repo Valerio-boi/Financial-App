@@ -41,11 +41,13 @@ export class LoginComponent {
   login() {
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
+        localStorage.setItem('user_id', response.userId.toString());
         localStorage.setItem(
           'token',
           btoa(this.username + ':' + this.password),
         );
         this.router.navigateByUrl('/home/dashboard');
+        console.log('tutto apposto eh');
       },
       error: (err) => {
         console.error('Errore di login:', err);

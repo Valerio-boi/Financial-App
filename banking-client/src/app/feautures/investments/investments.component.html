@@ -1,1 +1,83 @@
 <app-etf-chart></app-etf-chart>
+<div class="col-12">
+  <div class="row">
+    <div class="col">
+      <div class="row col center-elem-col" style="padding-top: 13%">
+        <h2 class="text-white">Simula il tuo investimento</h2>
+        <form (ngSubmit)="onSubmit()" #investmentForm="ngForm">
+          <div class="form-group p-3">
+            <label for="asset" class="text-white">Scegli l'asset:</label>
+            <select
+              id="asset"
+              [(ngModel)]="selectedAsset"
+              name="asset"
+              class="form-control"
+              required
+            >
+              <option value="SPY">S&P 500 (SPY)</option>
+              <option value="VT">World ETF (VT)</option>
+              <option value="BTC/USD">Bitcoin (BTC/USD)</option>
+            </select>
+          </div>
+
+          <div class="form-group p-3">
+            <label for="investmentAmount" class="text-white"
+              >Importo investimento (USD):</label
+            >
+            <input
+              id="investmentAmount"
+              type="number"
+              [(ngModel)]="investmentAmount"
+              name="investmentAmount"
+              class="form-control"
+              required
+              min="1"
+            />
+          </div>
+
+          <div class="form-group p-3">
+            <label for="investmentPeriod" class="text-white"
+              >Seleziona il periodo di investimento:</label
+            >
+            <select
+              id="investmentPeriod"
+              [(ngModel)]="investmentPeriod"
+              name="investmentPeriod"
+              class="form-control"
+              required
+            >
+              <option value="6">6 mesi</option>
+              <option value="12">1 anno</option>
+              <option value="60">5 anni</option>
+              <option value="120">10 anni</option>
+              <option value="240">20 anni</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            Simula Investimento
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="col">
+      <div class="row" style="padding-top: 10%">
+        <div class="col center-elem-col">
+          <div
+            class="chart-container"
+            style="position: relative; height: 400px; width: 600px"
+          >
+            <canvas id="investmentChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="row" style="padding-top: 10%">
+        <div class="col center-elem-col">
+          <app-dynamic-chart></app-dynamic-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

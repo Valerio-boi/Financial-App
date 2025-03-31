@@ -35,7 +35,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.loadUser();
-
     this.userSubscription = this.userService.onUserUpdate().subscribe(() => {
       this.loadUser();
     });

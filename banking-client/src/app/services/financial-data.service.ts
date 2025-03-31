@@ -1,17 +1,46 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root', // Mantiene il servizio come Singleton
 })
 export class FinancialDataService {
-  private apiKey = '5FXR49WD0FMWAOFQ';
+  private apiKey = '458d517e6c664bfc898cb0091af318ed';
+  private baseUrl = 'https://api.twelvedata.com/time_series';
 
-  constructor(private http: HttpClient) {}
+  private cache: { [symbol: string]: any } = {}; // Cache in memoria
 
-  getHistoricalData(symbol: string, interval: string): Observable<any> {
-    const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${this.apiKey}`;
-    return this.http.get(url); // Restituisce un Observable con i dati
+  constructor(private http: HttpClient) {
+    console.log('FinancialDataService istanziato');
+
+    // Recupera la cache dal localStorage all'avvio
+    const storedCache = localStorage.getItem('financialCache');
+    if (storedCache) {
+      this.cache = JSON.parse(storedCache);
+      console.log('Cache recuperata dal localStorage:', this.cache);
+    }
+  }
+
+  getHistoricalData(symbol: string): Observable<any> {
+    console.log(`Richiesta per ${symbol}`);
+
+    if (this.cache[symbol]) {
+      console.log(`Dati in cache trovati per ${symbol}`, this.cache[symbol]);
+      return of(this.cache[symbol]);
+    }
+
+    const url = `${this.baseUrl}?symbol=${symbol}&interval=1day&outputsize=5000&apikey=${this.apiKey}`;
+
+    return this.http.get(url).pipe(
+      tap((data) => {
+        console.log(`Dati ricevuti da API per ${symbol}`, data);
+        this.cache[symbol] = data;
+
+        // Salva la cache nel localStorage
+        localStorage.setItem('financialCache', JSON.stringify(this.cache));
+      }),
+    );
   }
 }
