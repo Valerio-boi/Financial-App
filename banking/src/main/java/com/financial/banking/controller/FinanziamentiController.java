@@ -40,6 +40,24 @@ public class FinanziamentiController {
         }
     }
 
+    @PostMapping(value = "/pay-finanziamento")
+    public ResponseEntity<Map<String, String>> payRata(@RequestBody Long id) {
+        log.info("---- Start payRata ----");
+        try {
+            Long delete = finanziamentiService.updateCountRata(id);
+            if(delete >  0 ) {
+                log.info("---- End payRata eliminooooooooooo ----");
+                finanziamentiService.deleteFinanziamentoById(id);
+                return ResponseEntity.ok().body(Collections.singletonMap("message", "Finanziamento concluso con successo"));
+            }
+            log.info("---- End payRata ----");
+            return ResponseEntity.ok().body(Collections.singletonMap("message", "Rata pagata con successo"));
+        } catch (DatabaseException e) {
+            log.error(e.getMessage());
+            throw new DatabaseException(Constants.ERRORE_DATA_BASE, e);
+        }
+    }
+
 
     @GetMapping(value = "/finanziamento")
     public ResponseEntity<Finanziamenti> getFinanziamentoById(@RequestParam  Long id) {
