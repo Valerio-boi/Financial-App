@@ -6,9 +6,9 @@ import lombok.Data;
 public class NewsDTO {
 
     private String id;
-    private String image_url;
+    private String imageUrl;
     private String title;
     private String description;
-    private String published_at;
+    private String publishedAt;
 
 }

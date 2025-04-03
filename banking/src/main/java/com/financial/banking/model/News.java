@@ -25,7 +25,7 @@ public class News implements Serializable {
     private ZonedDateTime publishedAt;
 
     public News(NewsDTO dto) {
-        this.imgUrl = dto.getImage_url();
+        this.imgUrl = dto.getImageUrl();
         this.title = dto.getTitle();
         this.content = dto.getDescription();
     }

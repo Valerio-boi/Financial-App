@@ -16,8 +16,8 @@ import java.util.List;
 @Service
 @Slf4j
 public class NewsService {
-    private final String API_URL = "https://api.marketaux.com/v1/news/all";
-    private final String  API_TOKEN = "uOolCbU4AangzAY8lciDekXkpsVSlNzrN7oufb3K";
+    private static final String API_URL = "https://api.marketaux.com/v1/news/all";
+    private static final String  API_TOKEN = "uOolCbU4AangzAY8lciDekXkpsVSlNzrN7oufb3K";
 
     private final NewsRepository newsRepository;
     private final RestTemplate restTemplate;
