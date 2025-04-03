@@ -36,7 +36,7 @@ public class NewsService {
         return newsRepository.findAll();
     }
 
-    @Scheduled(fixedRate = 1800000) // Ogni 30 minuti
+    @Scheduled(fixedRate = 1800000)
     public void fetchAndSaveNews() {
         String url = API_URL + "?symbols=TSLA,AMZN,MSFT&filter_entities=true&language=en&api_token=" + API_TOKEN;
 
@@ -47,11 +47,13 @@ public class NewsService {
                         .map(News::new)
                         .toList();
 
+                newsRepository.deleteAll();
+
                 newsRepository.saveAll(newsList);
-                log.info("✅ News aggiornate nel DB!");
+                log.info("News aggiornate nel DB!");
             }
         } catch (Exception e) {
-            log.error("⚠️ Errore nel recupero delle news: " + e.getMessage());
+            log.error("Errore nel recupero delle news: " + e.getMessage());
         }
     }
 
