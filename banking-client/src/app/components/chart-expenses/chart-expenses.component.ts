@@ -16,7 +16,7 @@ Chart.register(...registerables);
   styleUrl: './chart-expenses.component.css',
 })
 export class ChartExpensesComponent implements OnInit, OnDestroy {
-  public barChart: Chart | undefined; // Memorizza l'istanza del grafico
+  public barChart: Chart | undefined;
 
   @Input() transactions: any[] = [];
 
@@ -33,7 +33,6 @@ export class ChartExpensesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Distrugge il grafico quando il componente viene rimosso
     if (this.barChart) {
       this.barChart.destroy();
     }
@@ -58,13 +57,12 @@ export class ChartExpensesComponent implements OnInit, OnDestroy {
   }
 
   createChart() {
-    // 🔥 Se esiste già un grafico, distruggilo prima di crearne uno nuovo
     if (this.barChart) {
       this.barChart.destroy();
     }
 
     const aggregatedData = this.aggregateData();
-    const ctx = document.getElementById('barChart') as HTMLCanvasElement; // Assicura che il canvas sia corretto
+    const ctx = document.getElementById('barChart') as HTMLCanvasElement; 
 
     if (!ctx) {
       console.error('Elemento canvas non trovato');

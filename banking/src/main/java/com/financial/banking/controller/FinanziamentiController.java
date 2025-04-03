@@ -3,7 +3,6 @@ package com.financial.banking.controller;
 
 import com.financial.banking.constants.Constants;
 import com.financial.banking.exception.DatabaseException;
-import com.financial.banking.model.Card;
 import com.financial.banking.model.Finanziamenti;
 import com.financial.banking.model.dto.FinaziamentoRequest;
 import com.financial.banking.service.FinanziamentiService;
