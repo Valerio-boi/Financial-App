@@ -2,6 +2,7 @@ package com.financial.banking.controller;
 
 import com.financial.banking.exception.AccountNotFoundException;
 import com.financial.banking.model.Account;
+import com.financial.banking.model.Card;
 import com.financial.banking.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +26,15 @@ public class AccountController {
     public ResponseEntity<Account> createAccount(@RequestBody Account account) {
         log.info("---- Start createAccount ----");
         try {
+            log.info(String.valueOf(account.getUser().getCards().get(0).getBalance()));
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             account.setPassword(passwordEncoder.encode(account.getPassword()));
+            if (account.getUser() != null && account.getUser().getCards() != null) {
+                for (Card card : account.getUser().getCards()) {
+                    card.setUser(account.getUser());
+                }
+            }
+
             Account savedAccount = accountService.createAccount(account);
             log.info("---- End createAccount ----");
             return ResponseEntity.ok(savedAccount);

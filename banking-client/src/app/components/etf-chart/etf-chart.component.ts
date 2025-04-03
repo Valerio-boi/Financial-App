@@ -28,7 +28,6 @@ export class EtfChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // 🔥 Distruggiamo tutti i grafici prima di rimuovere il componente
     if (this.sp500Chart) this.sp500Chart.destroy();
     if (this.worldChart) this.worldChart.destroy();
     if (this.bitcoinChart) this.bitcoinChart.destroy();
@@ -100,7 +99,6 @@ export class EtfChartComponent implements OnInit, OnDestroy {
           },
         });
 
-        // 🔹 Salviamo il grafico nella variabile corrispondente
         if (chartId === 'sp500Chart') this.sp500Chart = newChart;
         else if (chartId === 'worldChart') this.worldChart = newChart;
         else if (chartId === 'bitcoinChart') this.bitcoinChart = newChart;
@@ -118,10 +116,6 @@ export class EtfChartComponent implements OnInit, OnDestroy {
       labels.push(item.datetime);
       prices.push(parseFloat(item.close));
     });
-
-    // if (symbol === 'SPY') {
-    //   return { labels: labels, prices: prices };
-    // }
 
     return { labels: labels.reverse(), prices: prices.reverse() };
   }
